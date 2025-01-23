@@ -1,0 +1,186 @@
+/**
+ * Console styling
+ */
+
+.xterm {
+    cursor: text;
+    position: relative;
+    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    background-color: #0c0c3d; /* Modern dark background */
+    color: #cdd6f4; /* Light text for good contrast */
+    font-family: 'Fira Code', monospace; /* Modern coding font */
+    border-radius: 8px; /* Rounded corners for a polished look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    overflow: hidden;
+}
+
+.xterm.focus,
+.xterm:focus {
+    outline: none;
+    border: 2px solid #89b4fa; /* Highlight border on focus */
+}
+
+.xterm .xterm-helpers {
+    position: absolute;
+    top: 0;
+    z-index: 5;
+}
+
+.xterm .xterm-helper-textarea {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    position: absolute;
+    opacity: 0;
+    left: -9999em;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: -5;
+    white-space: nowrap;
+    overflow: hidden;
+    resize: none;
+}
+
+.xterm .composition-view {
+    background: #313244; /* Slightly lighter background for contrast */
+    color: #f5e0dc; /* Softer white */
+    border: 1px solid #a6adc8; /* Subtle border for definition */
+    border-radius: 4px; /* Rounded corners */
+    padding: 4px 8px;
+    display: none;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.xterm .composition-view.active {
+    display: block;
+}
+
+.xterm .xterm-viewport {
+    background-color: #1e1e2e;
+    overflow-y: scroll;
+    cursor: default;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    scrollbar-width: thin; /* Thin scrollbar for a modern look */
+    scrollbar-color: #45475a #1e1e2e; /* Custom scrollbar colors */
+}
+
+.xterm .xterm-screen {
+    position: relative;
+}
+
+.xterm .xterm-screen canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.xterm .xterm-scroll-area {
+    visibility: hidden;
+}
+
+.xterm-char-measure-element {
+    display: inline-block;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: -9999em;
+    line-height: normal;
+}
+
+.xterm.enable-mouse-events {
+    cursor: default;
+}
+
+.xterm.xterm-cursor-pointer,
+.xterm .xterm-cursor-pointer {
+    cursor: pointer;
+}
+
+.xterm.column-select.focus {
+    cursor: crosshair;
+}
+
+.xterm .xterm-accessibility,
+.xterm .xterm-message {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    color: transparent;
+}
+
+.xterm .live-region {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.xterm-dim {
+    opacity: 0.6; /* Slightly lighter for dimmed text */
+    font-style: italic; /* Subtle style for dimmed text */
+}
+
+.xterm-underline {
+    text-decoration: underline;
+    text-decoration-color: #89b4fa; /* Accent color */
+}
+
+.xterm-strikethrough {
+    text-decoration: line-through;
+    text-decoration-color: #f38ba8; /* Accent color */
+}
+
+.xterm-screen .xterm-decoration-container .xterm-decoration {
+    z-index: 6;
+    position: absolute;
+}
+
+.xterm-decoration-overview-ruler {
+    z-index: 7;
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    background-color: #45475a;
+    width: 4px;
+    border-radius: 2px;
+}
+
+.xterm-decoration-top {
+    z-index: 2;
+    position: relative;
+}
+
+/* Smooth transitions for hover/focus effects */
+.xterm, 
+.xterm .composition-view {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Scrollbar styling */
+.xterm::-webkit-scrollbar {
+    width: 8px;
+}
+
+.xterm::-webkit-scrollbar-thumb {
+    background: #45475a;
+    border-radius: 4px;
+}
+
+.xterm::-webkit-scrollbar-thumb:hover {
+    background: #89b4fa;
+}

@@ -1,7 +1,10 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import * as os from "os";
+const require2 = createRequire(import.meta.url);
+const pty = require2("node-pty-prebuilt-multiarch");
 createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.APP_ROOT = path.join(__dirname, "..");
@@ -18,6 +21,7 @@ function createWindow() {
       nodeIntegration: true
     }
   });
+  win.setMenuBarVisibility(false);
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
@@ -26,6 +30,21 @@ function createWindow() {
   } else {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
+  const ptyProcess = pty.spawn("bash", [], {
+    name: "xterm-color",
+    cols: 80,
+    rows: 30,
+    // cwd: process.cwd(),
+    cwd: os.homedir(),
+    env: process.env
+  });
+  ptyProcess.on("data", function(data) {
+    win.webContents.send("terminal.incomingData", data);
+    console.log(data);
+  });
+  ipcMain.on("terminal.keystroke", (event, key) => {
+    ptyProcess.write(key);
+  });
 }
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

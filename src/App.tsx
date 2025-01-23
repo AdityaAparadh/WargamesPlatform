@@ -2,6 +2,7 @@
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/electron-vite.animate.svg";
 import "./App.css";
+import DockerLevel from "./components/DockerLevel/DockerLevel";
 import createTerminal from "./utils/createTerminal";
 import runCommand from "./utils/runCommand";
 
@@ -19,9 +20,10 @@ function App() {
 
   return (
     <>
-      <h1> Wargames: Metamorphosis 2k25 </h1>
+      {/* <h1 className> Wargames: Metamorphosis 2k25 </h1> */}
 
-      <button onClick={open_term}> Open Terminal </button>
+      <DockerLevel />
+      {/* <button onClick={open_term}> Open Terminal </button> */}
     </>
   );
 }

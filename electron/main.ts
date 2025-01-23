@@ -1,11 +1,10 @@
-import { app, BrowserWindow } from "electron";
-import { createRequire } from "node:module";
+import { app, BrowserWindow, ipcMain } from "electron";
+// import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-
-// const require = createRequire(import.meta.url)
-createRequire(import.meta.url);
+import pty from "node-pty-prebuilt-multiarch";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import * as os from "os";
 
 // The built directory structure
 //
@@ -34,10 +33,10 @@ function createWindow() {
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
-      nodeIntegration: true,
+      nodeIntegration: false,
+      contextIsolation: true,
     },
   });
-
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -49,6 +48,27 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
+
+  // Console ipc
+  const shell = "fish";
+  const ptyProcess = pty.spawn(shell, [], {
+    name: "xterm-color",
+    cols: 80,
+    rows: 30,
+    // cwd: process.cwd(),
+    cwd: os.homedir(),
+    env: process.env,
+  });
+
+  ptyProcess.on("data", function (data) {
+    win.webContents.send("terminal.incomingData", data);
+    // console.log("Data sent");
+    console.log(data);
+  });
+
+  ipcMain.on("terminal.keystroke", (event, key) => {
+    ptyProcess.write(key);
+  });
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
