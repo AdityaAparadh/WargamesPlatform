@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

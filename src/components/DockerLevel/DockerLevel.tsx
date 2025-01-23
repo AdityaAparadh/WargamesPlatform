@@ -1,5 +1,6 @@
 import Topbar from "./Topbar";
 import Console from "./Console";
+import Tools from "./Tools";
 
 const DockerLevel: React.FC = () => {
   const handleEnter = (input: string) => {
@@ -11,6 +12,7 @@ const DockerLevel: React.FC = () => {
       <Topbar levelName="Docker Level" onEnter={handleEnter} />
       <main className="flex-1 p-4 bg-navy-800 bg-opacity-50 rounded-tl-lg rounded-tr-lg overflow-auto">
         <Console />
+        <Tools />
       </main>
     </div>
   );

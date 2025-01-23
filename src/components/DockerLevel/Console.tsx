@@ -60,7 +60,7 @@ const Console: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-full p-4 ">
+    <div className="w-full h-full">
       <div className="w-full h-full flex flex-col rounded-lg overflow-hidden border border-navy-600 shadow-lg">
         <div className="p-2 flex items-center justify-between bg-navy-800">
           <div className="flex items-center space-x-2">
@@ -79,7 +79,7 @@ const Console: React.FC = () => {
         </div>
         <div
           ref={terminalRef}
-          className="flex-1 bg-navy-900 text-white mt-4 "
+          className="flex-1 bg-navy-900 text-white"
         />
       </div>
     </div>
