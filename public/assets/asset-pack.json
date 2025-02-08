@@ -1,0 +1,530 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/arrow-left.png",
+                "type": "image",
+                "key": "arrow-left"
+            },
+            {
+                "url": "assets/arrow-right.png",
+                "type": "image",
+                "key": "arrow-right"
+            },
+            {
+                "url": "assets/arrow-upleft.png",
+                "type": "image",
+                "key": "arrow-upleft"
+            },
+            {
+                "url": "assets/arrow-upright.png",
+                "type": "image",
+                "key": "arrow-upright"
+            },
+            {
+                "url": "assets/barrel-left.png",
+                "type": "image",
+                "key": "barrel-left"
+            },
+            {
+                "url": "assets/barrel-right.png",
+                "type": "image",
+                "key": "barrel-right"
+            },
+            {
+                "url": "assets/cannonright.png",
+                "type": "image",
+                "key": "cannonright"
+            },
+            {
+                "url": "assets/cannonrightleft.png",
+                "type": "image",
+                "key": "cannonrightleft"
+            },
+            {
+                "url": "assets/cargo-container-a-left.png",
+                "type": "image",
+                "key": "cargo-container-a-left"
+            },
+            {
+                "url": "assets/cargo-container-a-right.png",
+                "type": "image",
+                "key": "cargo-container-a-right"
+            },
+            {
+                "url": "assets/cargo-container-b-left.png",
+                "type": "image",
+                "key": "cargo-container-b-left"
+            },
+            {
+                "url": "assets/cargo-container-b-right.png",
+                "type": "image",
+                "key": "cargo-container-b-right"
+            },
+            {
+                "url": "assets/cargo-container-c-left.png",
+                "type": "image",
+                "key": "cargo-container-c-left"
+            },
+            {
+                "url": "assets/cargo-container-c-right.png",
+                "type": "image",
+                "key": "cargo-container-c-right"
+            },
+            {
+                "url": "assets/chest-left.png",
+                "type": "image",
+                "key": "chest-left"
+            },
+            {
+                "url": "assets/chest-right.png",
+                "type": "image",
+                "key": "chest-right"
+            },
+            {
+                "url": "assets/cloud1.png",
+                "type": "image",
+                "key": "cloud1"
+            },
+            {
+                "url": "assets/cloud10.png",
+                "type": "image",
+                "key": "cloud10"
+            },
+            {
+                "url": "assets/cloud2.png",
+                "type": "image",
+                "key": "cloud2"
+            },
+            {
+                "url": "assets/cloud3.png",
+                "type": "image",
+                "key": "cloud3"
+            },
+            {
+                "url": "assets/cloud4.png",
+                "type": "image",
+                "key": "cloud4"
+            },
+            {
+                "url": "assets/cloud5.png",
+                "type": "image",
+                "key": "cloud5"
+            },
+            {
+                "url": "assets/cloud6.png",
+                "type": "image",
+                "key": "cloud6"
+            },
+            {
+                "url": "assets/cloud7.png",
+                "type": "image",
+                "key": "cloud7"
+            },
+            {
+                "url": "assets/cloud8.png",
+                "type": "image",
+                "key": "cloud8"
+            },
+            {
+                "url": "assets/cloud9.png",
+                "type": "image",
+                "key": "cloud9"
+            },
+            {
+                "url": "assets/dino.png",
+                "key": "dino",
+                "type": "image"
+            },
+            {
+                "url": "assets/flag-pirateleft.png",
+                "type": "image",
+                "key": "flag-pirateleft"
+            },
+            {
+                "url": "assets/flag-pirateright.png",
+                "type": "image",
+                "key": "flag-pirateright"
+            },
+            {
+                "url": "assets/gate-finish-left.png",
+                "type": "image",
+                "key": "gate-finish-left"
+            },
+            {
+                "url": "assets/gate-finish-right.png",
+                "type": "image",
+                "key": "gate-finish-right"
+            },
+            {
+                "url": "assets/gold.png",
+                "type": "image",
+                "key": "gold"
+            },
+            {
+                "url": "assets/grass-plantleft.png",
+                "type": "image",
+                "key": "grass-plantleft"
+            },
+            {
+                "url": "assets/grass-plantright.png",
+                "type": "image",
+                "key": "grass-plantright"
+            },
+            {
+                "url": "assets/num1.png",
+                "type": "image",
+                "key": "num1"
+            },
+            {
+                "url": "assets/num10.png",
+                "type": "image",
+                "key": "num10"
+            },
+            {
+                "url": "assets/num11.png",
+                "type": "image",
+                "key": "num11"
+            },
+            {
+                "url": "assets/num12.png",
+                "type": "image",
+                "key": "num12"
+            },
+            {
+                "url": "assets/num13.png",
+                "type": "image",
+                "key": "num13"
+            },
+            {
+                "url": "assets/num14.png",
+                "type": "image",
+                "key": "num14"
+            },
+            {
+                "url": "assets/num15.png",
+                "type": "image",
+                "key": "num15"
+            },
+            {
+                "url": "assets/num16.png",
+                "type": "image",
+                "key": "num16"
+            },
+            {
+                "url": "assets/num17.png",
+                "type": "image",
+                "key": "num17"
+            },
+            {
+                "url": "assets/num18.png",
+                "type": "image",
+                "key": "num18"
+            },
+            {
+                "url": "assets/num19.png",
+                "type": "image",
+                "key": "num19"
+            },
+            {
+                "url": "assets/num2.png",
+                "type": "image",
+                "key": "num2"
+            },
+            {
+                "url": "assets/num20.png",
+                "type": "image",
+                "key": "num20"
+            },
+            {
+                "url": "assets/num3.png",
+                "type": "image",
+                "key": "num3"
+            },
+            {
+                "url": "assets/num4.png",
+                "type": "image",
+                "key": "num4"
+            },
+            {
+                "url": "assets/num5.png",
+                "type": "image",
+                "key": "num5"
+            },
+            {
+                "url": "assets/num6.png",
+                "type": "image",
+                "key": "num6"
+            },
+            {
+                "url": "assets/num7.png",
+                "type": "image",
+                "key": "num7"
+            },
+            {
+                "url": "assets/num8.png",
+                "type": "image",
+                "key": "num8"
+            },
+            {
+                "url": "assets/num9.png",
+                "type": "image",
+                "key": "num9"
+            },
+            {
+                "url": "assets/palm-bendleft.png",
+                "type": "image",
+                "key": "palm-bendleft"
+            },
+            {
+                "url": "assets/palm-bendmiddle.png",
+                "type": "image",
+                "key": "palm-bendmiddle"
+            },
+            {
+                "url": "assets/palm-bendright.png",
+                "type": "image",
+                "key": "palm-bendright"
+            },
+            {
+                "url": "assets/palm-detailed-straightleft.png",
+                "type": "image",
+                "key": "palm-detailed-straightleft"
+            },
+            {
+                "url": "assets/palm-detailed-straightright.png",
+                "type": "image",
+                "key": "palm-detailed-straightright"
+            },
+            {
+                "url": "assets/patch-grass-foliageleft.png",
+                "type": "image",
+                "key": "patch-grass-foliageleft"
+            },
+            {
+                "url": "assets/patch-grass-foliageright.png",
+                "type": "image",
+                "key": "patch-grass-foliageright"
+            },
+            {
+                "url": "assets/patch-grassleft.png",
+                "type": "image",
+                "key": "patch-grassleft"
+            },
+            {
+                "url": "assets/patch-grassright.png",
+                "type": "image",
+                "key": "patch-grassright"
+            },
+            {
+                "textureURL": "assets/pdark.png",
+                "fontDataURL": "assets/pdark.bmp",
+                "type": "bitmapFont",
+                "key": "pdark"
+            },
+            {
+                "textureURL": "assets/pdark.png",
+                "fontDataURL": "assets/pdark.ttf",
+                "type": "bitmapFont",
+                "key": "pdark_1"
+            },
+            {
+                "url": "assets/platformleft.png",
+                "type": "image",
+                "key": "platformleft"
+            },
+            {
+                "url": "assets/platformright.png",
+                "type": "image",
+                "key": "platformright"
+            },
+            {
+                "url": "assets/rocks-aleft.png",
+                "type": "image",
+                "key": "rocks-aleft"
+            },
+            {
+                "url": "assets/rocks-aright.png",
+                "type": "image",
+                "key": "rocks-aright"
+            },
+            {
+                "url": "assets/rocks-sand-b-left.png",
+                "type": "image",
+                "key": "rocks-sand-b-left"
+            },
+            {
+                "url": "assets/rocks-sand-b-right.png",
+                "type": "image",
+                "key": "rocks-sand-b-right"
+            },
+            {
+                "url": "assets/ship-largeleft.png",
+                "type": "image",
+                "key": "ship-largeleft"
+            },
+            {
+                "url": "assets/ship-largeright.png",
+                "type": "image",
+                "key": "ship-largeright"
+            },
+            {
+                "url": "assets/ship-pirate-largeleft.png",
+                "type": "image",
+                "key": "ship-pirate-largeleft"
+            },
+            {
+                "url": "assets/ship-pirate-largeright.png",
+                "type": "image",
+                "key": "ship-pirate-largeright"
+            },
+            {
+                "url": "assets/shipwhite.png",
+                "type": "image",
+                "key": "shipwhite"
+            },
+            {
+                "url": "assets/skull.png",
+                "type": "image",
+                "key": "skull"
+            },
+            {
+                "url": "assets/structure-platform-dock-smallleft.png",
+                "type": "image",
+                "key": "structure-platform-dock-smallleft"
+            },
+            {
+                "url": "assets/structure-platform-dock-smallright.png",
+                "type": "image",
+                "key": "structure-platform-dock-smallright"
+            },
+            {
+                "url": "assets/structure-platform-dockleft.png",
+                "type": "image",
+                "key": "structure-platform-dockleft"
+            },
+            {
+                "url": "assets/structure-platform-dockright.png",
+                "type": "image",
+                "key": "structure-platform-dockright"
+            },
+            {
+                "url": "assets/structure-platformleft.png",
+                "type": "image",
+                "key": "structure-platformleft"
+            },
+            {
+                "url": "assets/structure-platformright.png",
+                "type": "image",
+                "key": "structure-platformright"
+            },
+            {
+                "url": "assets/tile1.png",
+                "type": "image",
+                "key": "tile1"
+            },
+            {
+                "url": "assets/tile10.png",
+                "type": "image",
+                "key": "tile10"
+            },
+            {
+                "url": "assets/tile13.png",
+                "type": "image",
+                "key": "tile13"
+            },
+            {
+                "url": "assets/tile2.png",
+                "type": "image",
+                "key": "tile2"
+            },
+            {
+                "url": "assets/tile3.png",
+                "type": "image",
+                "key": "tile3"
+            },
+            {
+                "url": "assets/tile4.png",
+                "type": "image",
+                "key": "tile4"
+            },
+            {
+                "url": "assets/tile5.png",
+                "type": "image",
+                "key": "tile5"
+            },
+            {
+                "url": "assets/tile6.png",
+                "type": "image",
+                "key": "tile6"
+            },
+            {
+                "url": "assets/tile7.png",
+                "type": "image",
+                "key": "tile7"
+            },
+            {
+                "url": "assets/tile8.png",
+                "type": "image",
+                "key": "tile8"
+            },
+            {
+                "url": "assets/tile9.png",
+                "type": "image",
+                "key": "tile9"
+            },
+            {
+                "url": "assets/tower-base-doorleft.png",
+                "type": "image",
+                "key": "tower-base-doorleft"
+            },
+            {
+                "url": "assets/tower-base-doorright.png",
+                "type": "image",
+                "key": "tower-base-doorright"
+            },
+            {
+                "url": "assets/tower-complete-largeleft.png",
+                "type": "image",
+                "key": "tower-complete-largeleft"
+            },
+            {
+                "url": "assets/tower-complete-largeright.png",
+                "type": "image",
+                "key": "tower-complete-largeright"
+            },
+            {
+                "url": "assets/tower-complete-smallleft.png",
+                "type": "image",
+                "key": "tower-complete-smallleft"
+            },
+            {
+                "url": "assets/tower-complete-smallright.png",
+                "type": "image",
+                "key": "tower-complete-smallright"
+            },
+            {
+                "url": "assets/wood.png",
+                "type": "image",
+                "key": "wood"
+            },
+            {
+                "url": "assets/wood2.png",
+                "type": "image",
+                "key": "wood2"
+            },
+            {
+                "url": "assets/woodbridge.png",
+                "type": "image",
+                "key": "woodbridge"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

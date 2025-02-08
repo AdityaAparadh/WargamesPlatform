@@ -5,6 +5,7 @@ import "./App.css";
 import DockerLevel from "./components/DockerLevel/DockerLevel";
 import createTerminal from "./utils/createTerminal";
 import runCommand from "./utils/runCommand";
+import Game from "./components/MainPage/Game";
 
 function App() {
   const open_term = async () => {
@@ -22,7 +23,8 @@ function App() {
     <>
       {/* <h1 className> Wargames: Metamorphosis 2k25 </h1> */}
 
-      <DockerLevel />
+      {/* <DockerLevel /> */}
+      <Game />
       {/* <button onClick={open_term}> Open Terminal </button> */}
     </>
   );
