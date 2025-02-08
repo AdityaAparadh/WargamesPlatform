@@ -8,11 +8,10 @@
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "postinstall": "electron-rebuild",
+    "postinstall": "electron-builder install-app-deps && if [ \"$NODE_ENV\" != \"production\" ]; then npx electron-rebuild; fi",
     "tw": "tailwindcss -i src/App.css src/index.css --watch"
   },
   "dependencies": {
-    "electron-rebuild": "^3.2.9",
     "node-pty-prebuilt-multiarch": "^0.10.1-pre.5",
     "phaser": "^3.87.0",
     "react": "^18.2.0",
@@ -22,6 +21,7 @@
     "xterm-addon-fit": "^0.8.0"
   },
   "devDependencies": {
+    "electron-rebuild": "^3.2.9",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
@@ -38,5 +38,21 @@
     "vite-plugin-electron": "^0.28.6",
     "vite-plugin-electron-renderer": "^0.14.5"
   },
-  "main": "dist-electron/main.js"
+  "main": "dist-electron/main.js",
+  "build": {
+    "appId": "org.wcewlug.wargames",
+    "productName": "Wargames",
+    "files": [
+      "dist/",
+      "dist-electron/",
+      "node_modules/"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build"
+    }
+  }
 }

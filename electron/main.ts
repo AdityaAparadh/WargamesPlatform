@@ -67,6 +67,7 @@ function createWindow() {
   });
 
   ipcMain.on("terminal.keystroke", (event, key) => {
+    console.log(event);
     ptyProcess.write(key);
   });
 }

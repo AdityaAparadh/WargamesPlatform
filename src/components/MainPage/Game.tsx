@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
-import createPhaserGame from "./createPhaserGame";
-
+import createPhaserGame from "./createPhaserGame.js";
 const Game = () => {
   const phaserContainerRef = useRef(null);
 
