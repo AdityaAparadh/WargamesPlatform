@@ -1,4 +1,4 @@
-import Phaser, { Physics } from "phaser";
+import * as Phaser from "phaser";
 import Preload from "./scenes/Preload";
 import Level from "./scenes/Level";
 

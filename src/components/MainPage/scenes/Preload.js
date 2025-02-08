@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import * as Phaser from "phaser";
 import PreloadBarUpdaterScript from "../scripts/PreloadBarUpdaterScript";
 
 export default class Preload extends Phaser.Scene {
@@ -7,7 +7,10 @@ export default class Preload extends Phaser.Scene {
   }
 
   editorPreload() {
-    this.load.pack("asset-pack", "public/assets/asset-pack.json");
+    const assetPackPath = process.env.NODE_ENV === "production" 
+      ? "assets/asset-pack.json" 
+      : "public/assets/asset-pack.json";
+    this.load.pack("asset-pack", assetPackPath);
   }
 
   editorCreate() {

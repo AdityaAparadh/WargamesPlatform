@@ -2,22 +2,22 @@
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/electron-vite.animate.svg";
 import "./App.css";
-import DockerLevel from "./components/DockerLevel/DockerLevel";
-import createTerminal from "./utils/createTerminal";
-import runCommand from "./utils/runCommand";
+// import DockerLevel from "./components/DockerLevel/DockerLevel";
+// import createTerminal from "./utils/createTerminal";
+// import runCommand from "./utils/runCommand";
 import Game from "./components/MainPage/Game";
 
 function App() {
-  const open_term = async () => {
-    // Using runCommand
-    const result = await runCommand("pwd");
+  // const open_term = async () => {
+  //   // Using runCommand
+  //   const result = await runCommand("pwd");
 
-    const path = result.stdout.trim();
-    console.log("PATH: ", path);
+  //   const path = result.stdout.trim();
+  //   console.log("PATH: ", path);
 
-    // Using createTerminal
-    createTerminal(path);
-  };
+  //   // Using createTerminal
+  //   createTerminal(path);
+  // };
 
   return (
     <>
