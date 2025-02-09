@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+# Wargames Meta2k25
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The repository represents the code for the Wargames platform to be used in WLUG Metamorphosis 2k25.
 
-Currently, two official plugins are available:
+Technologies and Frameworks used:
+- [ElectronJS](https://www.electronjs.org/)
+- [PhaserJS](https://phaser.io/)
+- [Xterm.js](https://xtermjs.org/)
+- [React](https://react.dev/)
+- [Tailwind](https://tailwindcss.com/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Development
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Steps to setup development environment:
+1. Clone this repo
+```
+git clone https://github.com/AdityaAparadh/WargamesFrontend
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Install dependencies with your package manager
+```
+npm install
+```
+OR
+```
+bun install
+```
+
+3. Start development server:
+```
+npm run dev
+```
+OR
+```
+bun run dev
+```
+
+---
+
+## Production Build
+
+Currently, only Linux is supported as a build target.
+To generate a production build:
+
+```
+npm run build
+```
+This should generate a binary in `/dist`.
+
+Considerations:
+1. Typescript mode is set to `strict`, therefore if your code does not compile in production due to Typescript errors, you can try to remove the typescript step from build script in `package.json`.
+2. Builds are not yet supported with `bun`, use `npm` instead. This appears to be an [upstream issue](https://github.com/oven-sh/bun/issues/9895) .
