@@ -8,7 +8,7 @@
     "build": "tsc && vite build && electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "postinstall": "electron-builder install-app-deps && if [ \"$NODE_ENV\" != \"production\" ]; then npx electron-rebuild; fi",
+    "postinstall": "if [ \"$NODE_ENV\" != \"production\" ]; then npx electron-rebuild; fi",
     "tw": "tailwindcss -i src/App.css src/index.css --watch"
   },
   "dependencies": {

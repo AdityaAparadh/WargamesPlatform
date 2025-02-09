@@ -2,7 +2,7 @@
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/electron-vite.animate.svg";
 import "./App.css";
-// import DockerLevel from "./components/DockerLevel/DockerLevel";
+import DockerLevel from "./components/DockerLevel/DockerLevel";
 // import createTerminal from "./utils/createTerminal";
 // import runCommand from "./utils/runCommand";
 import Game from "./components/MainPage/Game";
