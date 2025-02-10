@@ -500,10 +500,10 @@ export default class Level extends Phaser.Scene {
 		num1.scaleY = 0.15;
     num1.setInteractive();
     num1.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
+		const event = new CustomEvent('terminal-trigger', {
+			detail: { terminalId: num1.texture.key }
+		});
+		window.dispatchEvent(event);
     });
 
 		// tile6
@@ -1131,6 +1131,23 @@ export default class Level extends Phaser.Scene {
 		// welcome.text = "Metamorphosis Wargames";
 		// welcome.setStyle({ "fontFamily": "Times New Roman", "fontSize": "40px" , "color" : "#000000"});
 		// welcome.setScrollFactor(0);
+
+        // NEW: Add onclick for all num tiles
+        // This code iterates over every child in the scene
+        // and if the texture key starts with "num", it makes it interactive.
+		this.children.list.forEach(child => {
+			// Check if the child is an image and its texture key starts with "num"
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key.startsWith("num")) {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('terminal-trigger', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+		});
 	}
 
 	/* END-USER-CODE */
