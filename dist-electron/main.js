@@ -15,6 +15,8 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
   ? path.join(process.env.APP_ROOT, "public")
   : RENDERER_DIST;
 let win;
+let ptyProcess;
+
 function createWindow() {
   win = new BrowserWindow({
     width: 1280,
@@ -39,7 +41,10 @@ function createWindow() {
   } else {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
-  const ptyProcess = pty.spawn("bash", [], {
+}
+
+function spawnShell() {
+  ptyProcess = pty.spawn("bash", [], {
     name: "xterm-color",
     cols: 80,
     rows: 30,
@@ -47,14 +52,32 @@ function createWindow() {
     cwd: os.homedir(),
     env: process.env,
   });
+
   ptyProcess.on("data", function (data) {
-    win.webContents.send("terminal.incomingData", data);
+    // Send data to the renderer process
+    if (win) {
+      win.webContents.send("terminal.incomingData", data);
+    }
     console.log(data);
   });
-  ipcMain.on("terminal.keystroke", (event, key) => {
-    ptyProcess.write(key);
+
+  ptyProcess.on("exit", (code) => {
+    console.log("Terminal shell exited with code:", code, ". Respawning shell...");
+    // Respawn a new shell upon exit
+    spawnShell();
   });
 }
+
+// Initially spawn the terminal shell
+spawnShell();
+
+// Update the ipcMain listener to use the current ptyProcess
+ipcMain.on("terminal.keystroke", (event, key) => {
+  if (ptyProcess) {
+    ptyProcess.write(key);
+  }
+});
+
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
