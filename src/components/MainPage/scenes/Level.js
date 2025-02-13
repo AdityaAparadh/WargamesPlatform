@@ -31,7 +31,7 @@ export default class Level extends Phaser.Scene {
 		patch_grassleft.scaleY = 0.5;
 
 		// cargo_container_a_right
-		const cargo_container_a_right = this.add.image(292, 512, "cargo-container-a-right");
+		const cargo_container_a_right = this.add.image(292, 511, "cargo-container-a-right");
 		cargo_container_a_right.scaleX = 0.15;
 		cargo_container_a_right.scaleY = 0.15;
 
@@ -39,6 +39,41 @@ export default class Level extends Phaser.Scene {
 		const ship_largeright = this.add.image(123, 594, "ship-largeright");
 		ship_largeright.scaleX = 0.3;
 		ship_largeright.scaleY = 0.3;
+
+		// tile_78
+		const tile_78 = this.add.image(426, -1107, "tile3");
+		tile_78.scaleX = 0.2;
+		tile_78.scaleY = 0.2;
+
+		// woodbridge_6
+		const woodbridge_6 = this.add.image(470, -1086, "woodbridge");
+		woodbridge_6.scaleX = 0.2;
+		woodbridge_6.scaleY = 0.2;
+
+		// tile_77
+		const tile_77 = this.add.image(517, -1061, "tile9");
+		tile_77.scaleX = 0.18;
+		tile_77.scaleY = 0.18;
+
+		// tile_75
+		const tile_75 = this.add.image(1432, -1078, "tile3");
+		tile_75.scaleX = 0.2;
+		tile_75.scaleY = 0.2;
+
+		// tile_74
+		const tile_74 = this.add.image(1384, -1057, "tile9");
+		tile_74.scaleX = 0.18;
+		tile_74.scaleY = 0.18;
+
+		// tile_73
+		const tile_73 = this.add.image(1341, -1035, "tile5");
+		tile_73.scaleX = 0.2;
+		tile_73.scaleY = 0.2;
+
+		// tile_76
+		const tile_76 = this.add.image(564, -1040, "tile5");
+		tile_76.scaleX = 0.2;
+		tile_76.scaleY = 0.2;
 
 		// tile_72
 		const tile_72 = this.add.image(605, -1017, "tile1");
@@ -469,6 +504,11 @@ export default class Level extends Phaser.Scene {
 		tile.scaleX = 0.18;
 		tile.scaleY = 0.18;
 
+		// bag
+		const bag = this.add.image(173, 475, "bag");
+		bag.scaleX = 0.1;
+		bag.scaleY = 0.1;
+
 		// flag_pirateright
 		const flag_pirateright = this.add.image(461, 458, "flag-pirateright");
 		flag_pirateright.scaleX = 0.2;
@@ -498,13 +538,6 @@ export default class Level extends Phaser.Scene {
 		const num1 = this.add.image(648, 572, "num1");
 		num1.scaleX = 0.15;
 		num1.scaleY = 0.15;
-    num1.setInteractive();
-    num1.on('pointerdown', () => {
-		const event = new CustomEvent('terminal-trigger', {
-			detail: { terminalId: num1.texture.key }
-		});
-		window.dispatchEvent(event);
-    });
 
 		// tile6
 		const tile6 = this.add.image(591, 622, "tile6");
@@ -611,25 +644,11 @@ export default class Level extends Phaser.Scene {
 		const num2 = this.add.image(596, 349, "num2");
 		num2.scaleX = 0.15;
 		num2.scaleY = 0.15;
-    num2.setInteractive();
-    num2.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
 
 		// num3
 		const num3 = this.add.image(883, 166, "num3");
 		num3.scaleX = 0.15;
 		num3.scaleY = 0.15;
-    num3.setInteractive();
-    num3.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
 
 		// barrel_left
 		const barrel_left = this.add.image(740, 257, "barrel-left");
@@ -651,11 +670,6 @@ export default class Level extends Phaser.Scene {
 		wood.scaleX = 0.09;
 		wood.scaleY = 0.09;
 
-		// skull
-		const skull = this.add.image(687, 353, "skull");
-		skull.scaleX = 0.08;
-		skull.scaleY = 0.08;
-
 		// cargo_container_c_left
 		const cargo_container_c_left = this.add.image(700, 53, "cargo-container-c-left");
 		cargo_container_c_left.scaleX = 0.1;
@@ -675,13 +689,6 @@ export default class Level extends Phaser.Scene {
 		const num4 = this.add.image(562, -33, "num4");
 		num4.scaleX = 0.15;
 		num4.scaleY = 0.15;
-    num4.setInteractive();
-    num4.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
 
 		// cannonright_1
 		const cannonright_1 = this.add.image(421, -132, "cannonright");
@@ -723,13 +730,6 @@ export default class Level extends Phaser.Scene {
 		const num5 = this.add.image(561, -211, "num5");
 		num5.scaleX = 0.15;
 		num5.scaleY = 0.15;
-    num5.setInteractive();
-    num5.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
 
 		// platformleft
 		const platformleft = this.add.image(776, -107, "platformleft");
@@ -745,13 +745,6 @@ export default class Level extends Phaser.Scene {
 		const num6 = this.add.image(836, -380, "num6");
 		num6.scaleX = 0.15;
 		num6.scaleY = 0.15;
-    num6.setInteractive();
-    num6.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
 
 		// tile_34
 		const tile_34 = this.add.image(788, -273, "tile8");
@@ -773,42 +766,6 @@ export default class Level extends Phaser.Scene {
 		cargo_container_b_left_1.scaleX = 0.1;
 		cargo_container_b_left_1.scaleY = 0.1;
 
-		// num17
-		const num17 = this.add.image(605, -532, "num17");
-		num17.scaleX = 0.15;
-		num17.scaleY = 0.15;
-    num17.setInteractive();
-    num17.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
-
-		// num18
-		const num18 = this.add.image(386, -669, "num18");
-		num18.scaleX = 0.15;
-		num18.scaleY = 0.15;
-    num18.setInteractive();
-    num18.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
-
-		// num19
-		const num19 = this.add.image(609, -794, "num19");
-		num19.scaleX = 0.15;
-		num19.scaleY = 0.15;
-    num19.setInteractive();
-    num19.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
-
 		// tile_52
 		const tile_52 = this.add.image(701, -714, "tile3");
 		tile_52.scaleX = 0.2;
@@ -828,18 +785,6 @@ export default class Level extends Phaser.Scene {
 		const gate_finish_left = this.add.image(840, -774, "gate-finish-left");
 		gate_finish_left.scaleX = 0.12;
 		gate_finish_left.scaleY = 0.12;
-
-		// num20
-		const num20 = this.add.image(931, -824, "num20");
-		num20.scaleX = 0.15;
-		num20.scaleY = 0.15;
-    num20.setInteractive();
-    num20.on('pointerdown', () => {
-      const event = new CustomEvent('terminal-trigger', {
-        detail: { terminalId: 'terminal1' }
-      });
-      window.dispatchEvent(event);
-    });
 
 		// flag_pirateleft_1
 		const flag_pirateleft_1 = this.add.image(533, -272, "flag-pirateleft");
@@ -866,11 +811,6 @@ export default class Level extends Phaser.Scene {
 		palm_bendright_3.scaleX = 0.15;
 		palm_bendright_3.scaleY = 0.15;
 		palm_bendright_3.flipX = true;
-
-		// skull_1
-		const skull_1 = this.add.image(1195, -160, "skull");
-		skull_1.scaleX = 0.08;
-		skull_1.scaleY = 0.08;
 
 		// palm_bendright_2
 		const palm_bendright_2 = this.add.image(994, -124, "palm-bendright");
@@ -907,11 +847,6 @@ export default class Level extends Phaser.Scene {
 		const barrel_left_1 = this.add.image(49, -650, "barrel-left");
 		barrel_left_1.scaleX = 0.1;
 		barrel_left_1.scaleY = 0.1;
-
-		// barrel_left_4
-		const barrel_left_4 = this.add.image(115, -780, "barrel-left");
-		barrel_left_4.scaleX = 0.1;
-		barrel_left_4.scaleY = 0.1;
 
 		// chest_left_2
 		const chest_left_2 = this.add.image(227, -739, "chest-left");
@@ -957,16 +892,6 @@ export default class Level extends Phaser.Scene {
 		rocks_sand_b_right.scaleX = 0.1;
 		rocks_sand_b_right.scaleY = 0.1;
 
-		// wood_2
-		const wood_2 = this.add.image(742, -454, "wood2");
-		wood_2.scaleX = 0.07;
-		wood_2.scaleY = 0.07;
-
-		// wood_3
-		const wood_3 = this.add.image(774, -435, "wood2");
-		wood_3.scaleX = 0.07;
-		wood_3.scaleY = 0.07;
-
 		// chest_left_3
 		const chest_left_3 = this.add.image(747, -943, "chest-left");
 		chest_left_3.scaleX = 0.1;
@@ -986,6 +911,116 @@ export default class Level extends Phaser.Scene {
 		const flag_pirateleft_2 = this.add.image(1040, -891, "flag-pirateleft");
 		flag_pirateleft_2.scaleX = 0.2;
 		flag_pirateleft_2.scaleY = 0.2;
+
+		// direction3
+		const direction3 = this.add.image(491, 384, "direction3");
+		direction3.scaleX = 0.15;
+		direction3.scaleY = 0.15;
+
+		// stone
+		const stone = this.add.image(838, 201, "stone");
+		stone.scaleX = 0.1;
+		stone.scaleY = 0.1;
+
+		// stone_1
+		const stone_1 = this.add.image(832, 200, "stone");
+		stone_1.scaleX = 0.1;
+		stone_1.scaleY = 0.1;
+		stone_1.flipX = true;
+
+		// stone_2
+		const stone_2 = this.add.image(846, 222, "stone");
+		stone_2.scaleX = 0.1;
+		stone_2.scaleY = 0.1;
+		stone_2.flipY = true;
+
+		// direction4
+		const direction4 = this.add.image(747, -6, "direction4");
+		direction4.scaleX = 0.15;
+		direction4.scaleY = 0.15;
+
+		// goldflag
+		const goldflag = this.add.image(1211, -183, "goldflag");
+		goldflag.scaleX = 0.15;
+		goldflag.scaleY = 0.15;
+
+		// num10
+		const num10 = this.add.image(930, -834, "num10");
+		num10.scaleX = 0.15;
+		num10.scaleY = 0.15;
+
+		// num9
+		const num9 = this.add.image(603, -800, "num9");
+		num9.scaleX = 0.15;
+		num9.scaleY = 0.15;
+
+		// num8
+		const num8 = this.add.image(380, -674, "num8");
+		num8.scaleX = 0.15;
+		num8.scaleY = 0.15;
+
+		// num7
+		const num7 = this.add.image(605, -536, "num7");
+		num7.scaleX = 0.15;
+		num7.scaleY = 0.15;
+
+		// heart
+		const heart = this.add.image(692, -589, "heart");
+		heart.scaleX = 0.15;
+		heart.scaleY = 0.15;
+
+		// direction1
+		const direction1 = this.add.image(428, -647, "direction1");
+		direction1.scaleX = 0.15;
+		direction1.scaleY = 0.15;
+
+		// cargo_container_a_right_2
+		const cargo_container_a_right_2 = this.add.image(101, -801, "cargo-container-a-right");
+		cargo_container_a_right_2.scaleX = 0.3;
+		cargo_container_a_right_2.scaleY = 0.3;
+
+		// goldflag_1
+		const goldflag_1 = this.add.image(1447, -1120, "goldflag");
+		goldflag_1.scaleX = 0.15;
+		goldflag_1.scaleY = 0.15;
+
+		// stone_3
+		const stone_3 = this.add.image(784, -289, "stone");
+		stone_3.scaleX = 0.1;
+		stone_3.scaleY = 0.1;
+		stone_3.flipX = true;
+
+		// stone_4
+		const stone_4 = this.add.image(789, -288, "stone");
+		stone_4.scaleX = 0.1;
+		stone_4.scaleY = 0.1;
+
+		// stone_5
+		const stone_5 = this.add.image(785, -280, "stone");
+		stone_5.scaleX = 0.1;
+		stone_5.scaleY = 0.1;
+		stone_5.flipX = true;
+		stone_5.flipY = true;
+
+		// palm_bendleft_1
+		const palm_bendleft_1 = this.add.image(488, -778, "palm-bendleft");
+		palm_bendleft_1.scaleX = 0.2;
+		palm_bendleft_1.scaleY = 0.2;
+
+		// grass_plantleft_3
+		const grass_plantleft_3 = this.add.image(501, -736, "grass-plantleft");
+		grass_plantleft_3.scaleX = 0.1;
+		grass_plantleft_3.scaleY = 0.1;
+
+		// direction
+		const direction = this.add.image(745, -456, "direction4");
+		direction.scaleX = 0.15;
+		direction.scaleY = 0.15;
+
+		// chest_right_1
+		const chest_right_1 = this.add.image(742, -323, "chest-right");
+		chest_right_1.scaleX = 0.1;
+		chest_right_1.scaleY = 0.1;
 
 		this.events.emit("scene-awake");
 	}
@@ -1131,7 +1166,59 @@ export default class Level extends Phaser.Scene {
 		// welcome.text = "Metamorphosis Wargames";
 		// welcome.setStyle({ "fontFamily": "Times New Roman", "fontSize": "40px" , "color" : "#000000"});
 		// welcome.setScrollFactor(0);
+		// extra clouds on left side
+		this.add.image(1450, -88, "cloud4").setScrollFactor(0.1);
 
+		// cloud5 extra (no variable needed as no further reference)
+		this.add.image(1756, -136, "cloud5").setScrollFactor(0.1);
+
+		// cloud3 extra
+		const cloud3Extra = this.add.image(1458, -26, "cloud3");
+		cloud3Extra.scaleX = 0.3;
+		cloud3Extra.scaleY = 0.3;
+		cloud3Extra.setScrollFactor(0.1);
+
+		// cloud extra
+		const cloudExtra = this.add.image(1579.8078365151016, -129.74737345137086, "cloud3");
+		cloudExtra.scaleX = 0.3;
+		cloudExtra.scaleY = 0.3;
+		cloudExtra.setScrollFactor(0.1);
+
+		// cloud_1 extra
+		const cloud_1Extra = this.add.image(1713.5289714157752, -39.28895866562108, "cloud3");
+		cloud_1Extra.scaleX = 0.3;
+		cloud_1Extra.scaleY = 0.3;
+		cloud_1Extra.setScrollFactor(0.1);
+
+		// cloud_2 extra
+		const cloud_2Extra = this.add.image(1381.1926214420423, -151.37873350883277, "cloud3");
+		cloud_2Extra.scaleX = 0.3;
+		cloud_2Extra.scaleY = 0.3;
+		cloud_2Extra.setScrollFactor(0.1);
+
+		// cloud_3 extra
+		const cloud_3Extra = this.add.image(1884.6133645975194, -35.35598410971892, "cloud3");
+		cloud_3Extra.scaleX = 0.3;
+		cloud_3Extra.scaleY = 0.3;
+		cloud_3Extra.setScrollFactor(0.1);
+
+		// cloud_4 extra
+		const cloud_4Extra = this.add.image(1782.3560261440632, -214.30632640326738, "cloud3");
+		cloud_4Extra.scaleX = 0.3;
+		cloud_4Extra.scaleY = 0.3;
+		cloud_4Extra.setScrollFactor(0.1);
+
+		// cloud_5 extra
+		const cloud_5Extra = this.add.image(1497.2153708411563, -271.33445746384876, "cloud3");
+		cloud_5Extra.scaleX = 0.3;
+		cloud_5Extra.scaleY = 0.3;
+		cloud_5Extra.setScrollFactor(0.1);
+
+		// cloud_6 extra
+		const cloud_6Extra = this.add.image(1680.0986876906068, -353.92692313779423, "cloud3");
+		cloud_6Extra.scaleX = 0.3;
+		cloud_6Extra.scaleY = 0.3;
+		cloud_6Extra.setScrollFactor(0.1);
         // NEW: Add onclick for all num tiles
         // This code iterates over every child in the scene
         // and if the texture key starts with "num", it makes it interactive.
