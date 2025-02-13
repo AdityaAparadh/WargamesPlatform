@@ -22,6 +22,16 @@
                 "key": "arrow-upright"
             },
             {
+                "url": "assets/bag.png",
+                "type": "image",
+                "key": "bag"
+            },
+            {
+                "url": "assets/balloon.png",
+                "type": "image",
+                "key": "balloon"
+            },
+            {
                 "url": "assets/barrel-left.png",
                 "type": "image",
                 "key": "barrel-left"
@@ -137,6 +147,26 @@
                 "type": "image"
             },
             {
+                "url": "assets/direction1.png",
+                "type": "image",
+                "key": "direction1"
+            },
+            {
+                "url": "assets/direction2.png",
+                "type": "image",
+                "key": "direction2"
+            },
+            {
+                "url": "assets/direction3.png",
+                "type": "image",
+                "key": "direction3"
+            },
+            {
+                "url": "assets/direction4.png",
+                "type": "image",
+                "key": "direction4"
+            },
+            {
                 "url": "assets/flag-pirateleft.png",
                 "type": "image",
                 "key": "flag-pirateleft"
@@ -162,6 +192,11 @@
                 "key": "gold"
             },
             {
+                "url": "assets/goldflag.png",
+                "type": "image",
+                "key": "goldflag"
+            },
+            {
                 "url": "assets/grass-plantleft.png",
                 "type": "image",
                 "key": "grass-plantleft"
@@ -170,6 +205,11 @@
                 "url": "assets/grass-plantright.png",
                 "type": "image",
                 "key": "grass-plantright"
+            },
+            {
+                "url": "assets/heart.png",
+                "type": "image",
+                "key": "heart"
             },
             {
                 "url": "assets/num1.png",
@@ -389,6 +429,11 @@
                 "key": "skull"
             },
             {
+                "url": "assets/stone.png",
+                "type": "image",
+                "key": "stone"
+            },
+            {
                 "url": "assets/structure-platform-dock-smallleft.png",
                 "type": "image",
                 "key": "structure-platform-dock-smallleft"
@@ -502,6 +547,11 @@
                 "url": "assets/tower-complete-smallright.png",
                 "type": "image",
                 "key": "tower-complete-smallright"
+            },
+            {
+                "url": "assets/Wargames Assets .png",
+                "type": "image",
+                "key": "Wargames Assets "
             },
             {
                 "url": "assets/wood.png",
