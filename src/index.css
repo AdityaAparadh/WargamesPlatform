@@ -1,3 +1,15 @@
+/* Add at the top of your index.css to remove default margins and ensure full viewport usage */
+html, body, #root {
+  position: fixed;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  top: 0;
+  left: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -871,4 +883,34 @@ video {
 
 .group:hover .group-hover\:block {
   display: block;
+}
+
+/* Force canvas elements to display as block to remove any inline gap */
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Add/update these rules */
+html, body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#phaser-container {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
 }
