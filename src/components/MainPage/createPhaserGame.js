@@ -15,17 +15,16 @@ export const createPhaserGame = (parentElement) => {
   console.log("Parent element:", parentElement);
 
   const config = {
-    width: 1280,
-    height: 720,
+    width: parentElement?.clientWidth || window.innerWidth,
+    height: parentElement?.clientHeight || window.innerHeight,
     type: Phaser.AUTO,
     backgroundColor: "#242424",
     scale: {
-      mode: Phaser.Scale.FIT,
+      mode: Phaser.Scale.ENVELOP,
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     parent: parentElement,
   };
-
 
   const game = new Phaser.Game(config);
 
