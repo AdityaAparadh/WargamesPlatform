@@ -20,12 +20,11 @@ export const createPhaserGame = (parentElement) => {
     type: Phaser.AUTO,
     backgroundColor: "#242424",
     scale: {
-      mode: Phaser.Scale.RESIZE,
+      mode: Phaser.Scale.ENVELOP,
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     parent: parentElement,
   };
-
 
   const game = new Phaser.Game(config);
 
