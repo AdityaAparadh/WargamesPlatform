@@ -5,7 +5,10 @@ import './index.css'
 // Disable default zoom shortcuts (Ctrl++, Ctrl--, Ctrl+=)
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=')) {
-    e.preventDefault();
+    // Only disable shortcut when the terminal is not open.
+    if (!window.isTerminalOpen) {
+      e.preventDefault();
+    }
   }
 });
 

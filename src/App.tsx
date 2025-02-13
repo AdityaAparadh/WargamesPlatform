@@ -25,6 +25,12 @@ function App() {
     };
   }, []);
 
+  // --- NEW: Update global flag for terminal visibility ---
+  useEffect(() => {
+    window.isTerminalOpen = showDocker;
+  }, [showDocker]);
+  // ---------------------------------------------------------
+
   // const open_term = async () => {
   //   // Using runCommand
   //   const result = await runCommand("pwd");
