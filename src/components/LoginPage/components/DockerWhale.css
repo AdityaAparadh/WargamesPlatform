@@ -13,7 +13,7 @@
 /* Whale */
 .whale {
   position: relative;
-  transform: scale(0.7);
+  transform: scale(0.5);
   transform-origin: center center;
   animation: whale 6s ease-in-out forwards infinite;
   width: 300px;
@@ -165,16 +165,16 @@
 /* Keyframes */
 @keyframes whale {
   10%, 30% {
-    transform: rotate(5deg) scale(0.7);
+    transform: rotate(5deg) scale(0.5);
   }
   20% {
-    transform: rotate(-5deg) scale(0.7);
+    transform: rotate(-5deg) scale(0.5);
   }
   50% {
-    transform: rotate(45deg) scale(0.7);
+    transform: rotate(45deg) scale(0.5);
   }
   80% {
-    transform: rotate(-5deg) scale(0.7);
+    transform: rotate(-5deg) scale(0.5);
   }
 }
 
@@ -189,11 +189,11 @@
 
 @keyframes whalesplash {
   60% {
-    transform: scaleY(0.4) translateX(-55%);
+    transform: scaleY(0.5) translateX(-55%);
     opacity: 0;
   }
   80% {
-    transform: scaleY(0.4) translateX(-55%) scaleX(2);
+    transform: scaleY(0.5) translateX(-55%) scaleX(0.5);
     box-shadow: 0 0 20px 20px rgba(173, 216, 230, 0.6),
                 inset 0 0 20px 20px rgba(173, 216, 230, 0.6);
     opacity: 1;
@@ -213,22 +213,10 @@
 }
 
 @keyframes surfing {
-  0% {
-    transform: translate(-50%, -50%) translate(0, 0);
-  }
-  20% {
-    transform: translate(-50%, -50%) translate(30px, -10px);
-  }
-  40% {
-    transform: translate(-50%, -50%) translate(-20px, 15px);
-  }
-  60% {
-    transform: translate(-50%, -50%) translate(20px, -25px);
-  }
-  80% {
-    transform: translate(-50%, -50%) translate(-30px, 20px);
-  }
-  100% {
-    transform: translate(-50%, -50%) translate(0, 0);
-  }
-} 
+  0% { transform: translate(-50%, -50%) translate(0, 0); }
+  20% { transform: translate(-50%, -50%) translate(30px, 0); } /* Remove Y movement */
+  40% { transform: translate(-50%, -50%) translate(-20px, 0); } /* Remove Y movement */
+  60% { transform: translate(-50%, -50%) translate(20px, 0); } /* Remove Y movement */
+  80% { transform: translate(-50%, -50%) translate(-30px, 0); } /* Remove Y movement */
+  100% { transform: translate(-50%, -50%) translate(0, 0); }
+}

@@ -20,8 +20,8 @@ export default function LoginPageApp() {
 
   return (
     <>
-      <Scene />
       <div className="main">
+      <Scene />
         <DockerWhale />
         <div className="code">
           <div className="code-container">

@@ -11,7 +11,7 @@ interface ToolsProps {
 const Tools: React.FC<ToolsProps> = ({ onBack, onReset, onCheatsheet }) => {
   return (
     <div className="flex items-center justify-between p-4 border-b border-navy-600 bg-navy-800">
-      <div className="flex items-center">
+      <div className="flex items-center gap-6"> {/* Increased gap */}
         <button
           onClick={onBack}
           className="px-4 py-2 bg-navy-700 hover:bg-navy-600 text-white rounded-md font-medium transition-colors flex items-center space-x-2"
@@ -19,7 +19,8 @@ const Tools: React.FC<ToolsProps> = ({ onBack, onReset, onCheatsheet }) => {
           <FaArrowLeft className="text-blue-400" />
           <span>Back</span>
         </button>
-        <div className="w-40"></div>
+        <div style={{ width: "20px" }}></div>
+
         <button
           onClick={onReset}
           className="px-4 py-2 bg-navy-700 hover:bg-navy-600 text-white rounded-md font-medium transition-colors flex items-center space-x-2"
@@ -40,5 +41,3 @@ const Tools: React.FC<ToolsProps> = ({ onBack, onReset, onCheatsheet }) => {
 }
 
 export default Tools
-
-
