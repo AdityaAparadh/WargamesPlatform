@@ -1228,7 +1228,7 @@ export default class Level extends Phaser.Scene {
 				child.setInteractive(); // Ensure the image is interactive
 				child.on('pointerdown', () => {
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
-					const event = new CustomEvent('terminal-trigger', {
+					const event = new CustomEvent('trigger-level-1', {
 						detail: { terminalId: child.texture.key }
 					});
 					window.dispatchEvent(event);

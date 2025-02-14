@@ -52,3 +52,9 @@ This should generate a binary in `/dist`.
 Considerations:
 1. Typescript mode is set to `strict`, therefore if your code does not compile in production due to Typescript errors, you can try to remove the typescript step from build script in `package.json`.
 2. Builds are not yet supported with `bun`, use `npm` instead. This appears to be an [upstream issue](https://github.com/oven-sh/bun/issues/9895) .
+
+---
+
+## Others
+
+- Set environment variable `WARGAMES_PATH` to the root of this project before execution

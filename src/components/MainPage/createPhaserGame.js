@@ -32,11 +32,17 @@ export const createPhaserGame = (parentElement) => {
       pixelArt: false   // disable pixelated rendering
     },
     scale: {
+      // ameya
       mode: Phaser.Scale.ENVELOP,         // automatically scales to completely cover the parent
       autoCenter: Phaser.Scale.CENTER_BOTH, // center the game in the parent container
+      /*
+      mode: Phaser.Scale.RESIZE,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      >>aditya*/
     },
     parent: parentElement,
   };
+
 
   const game = new Phaser.Game(config);
 

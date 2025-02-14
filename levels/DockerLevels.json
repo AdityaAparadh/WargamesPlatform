@@ -1,0 +1,58 @@
+[
+    {
+        "level": 1,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level1/preload.sh",
+        "runScriptPath": "levels/docker/level1/run.sh",
+        "cleanupScriptPath": "levels/docker/level1/cleanup.sh"
+    },
+    {
+        "level": 3,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level3/preload.sh",
+        "runScriptPath": "levels/docker/level3/run.sh",
+        "cleanupScriptPath": "levels/docker/level3/cleanup.sh"
+    },
+    {
+        "level": 5,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level5/preload.sh",
+        "runScriptPath": "levels/docker/level5/run.sh",
+        "cleanupScriptPath": "levels/docker/level5/cleanup.sh"
+    },
+    {
+        "level": 7,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level7/preload.sh",
+        "runScriptPath": "levels/docker/level7/run.sh",
+        "cleanupScriptPath": "levels/docker/level7/cleanup.sh"
+    },
+    {
+        "level": 9,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level9/preload.sh",
+        "runScriptPath": "levels/docker/level9/run.sh",
+        "cleanupScriptPath": "levels/docker/level9/cleanup.sh"
+    },
+    {
+        "level": 11,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level11/preload.sh",
+        "runScriptPath": "levels/docker/level11/run.sh",
+        "cleanupScriptPath": "levels/docker/level11/cleanup.sh"
+    },
+    {
+        "level": 13,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level13/preload.sh",
+        "runScriptPath": "levels/docker/level13/run.sh",
+        "cleanupScriptPath": "levels/docker/level13/cleanup.sh"
+    },
+    {
+        "level": 15,
+        "name": "Dockyard",
+        "preloadScriptPath": "levels/docker/level15/preload.sh",
+        "runScriptPath": "levels/docker/level15/run.sh",
+        "cleanupScriptPath": "levels/docker/level15/cleanup.sh"
+    }
+]

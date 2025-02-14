@@ -50,19 +50,18 @@ function createWindow() {
   }
 
   // Console ipc
-  const shell = "fish";
-  const ptyProcess = pty.spawn(shell, [], {
+  // const shellCommand = os.platform() === "win32" ? "cmd.exe" : "bash";
+  
+  const ptyProcess = pty.spawn("bash", [], {
     name: "xterm-color",
     cols: 80,
     rows: 30,
-    // cwd: process.cwd(),
     cwd: os.homedir(),
     env: process.env,
   });
 
   ptyProcess.on("data", function (data) {
     win.webContents.send("terminal.incomingData", data);
-    // console.log("Data sent");
     console.log(data);
   });
 
