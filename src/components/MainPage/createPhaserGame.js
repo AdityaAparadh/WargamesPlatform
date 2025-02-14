@@ -38,6 +38,7 @@ export const createPhaserGame = (parentElement) => {
     parent: parentElement,
   };
 
+
   const game = new Phaser.Game(config);
 
   game.scene.add("Preload", Preload);
