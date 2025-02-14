@@ -10,18 +10,16 @@ const Game = () => {
   useEffect(() => {
     const game = createPhaserGame(phaserContainerRef.current);
 
-    const handleResize = () => {
-      const container = phaserContainerRef.current;
-      if (container) {
-        game.scale.resize(container.clientWidth, container.clientHeight);
-      }
-    };
-
-    // Add ResizeObserver for the container
-    const resizeObserver = new ResizeObserver(handleResize);
-    if (phaserContainerRef.current) {
-      resizeObserver.observe(phaserContainerRef.current);
-    }
+    // const handleResize = () => {
+    //   const container = phaserContainerRef.current;
+    //   if (container) {
+    //     game.scale.resize(container.clientWidth, container.clientHeight);
+    //   }
+    // };
+    // const resizeObserver = new ResizeObserver(handleResize);
+    // if (phaserContainerRef.current) {
+    //   resizeObserver.observe(phaserContainerRef.current);
+    // }
 
     // Listen for trigger-level-{n} events; adjust the range as needed.
     const eventHandler = (e: CustomEvent) => {
@@ -29,16 +27,22 @@ const Game = () => {
       const lvl = parseInt(parts[2]);
       loadLevel(lvl, setCurrentPage);
     };
+    setTimeout(() => {
+      if (game.canvas) {
+        game.canvas.focus();
+      }
+    }, 100);
     for (let i = 1; i <= 20; i++) {
       window.addEventListener(`trigger-level-${i}`, eventHandler as EventListener);
     }
 
     return () => {
-      resizeObserver.disconnect();
+      // resizeObserver.disconnect();
       for (let i = 1; i <= 20; i++) {
         window.removeEventListener(`trigger-level-${i}`, eventHandler as EventListener);
       }
       game.destroy(true);
+      phaserContainerRef.current = null;
     };
   }, [setCurrentPage]);
 
