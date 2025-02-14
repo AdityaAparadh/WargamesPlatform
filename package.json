@@ -12,6 +12,7 @@
     "tw": "tailwindcss -i src/App.css src/index.css --watch"
   },
   "dependencies": {
+    "framer-motion": "^12.4.2",
     "node-pty-prebuilt-multiarch": "^0.10.1-pre.5",
     "phaser": "^3.87.0",
     "react": "^18.2.0",
