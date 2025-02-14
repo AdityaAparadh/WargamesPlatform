@@ -1,7 +1,7 @@
 /* Reset/utility styles specifically for the login component */
 * {
   box-sizing: border-box;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  /* font-family: 'Inter', 'Segoe UI', sans-serif; */
 }
 
 /* Login container */

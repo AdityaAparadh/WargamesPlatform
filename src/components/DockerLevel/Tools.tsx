@@ -19,7 +19,7 @@ const Tools: React.FC<ToolsProps> = ({ onBack, onReset, onCheatsheet }) => {
           <FaArrowLeft className="text-blue-400" />
           <span>Back</span>
         </button>
-        <div className="w-4"></div>
+        <div className="w-40"></div>
         <button
           onClick={onReset}
           className="px-4 py-2 bg-navy-700 hover:bg-navy-600 text-white rounded-md font-medium transition-colors flex items-center space-x-2"

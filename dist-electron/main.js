@@ -91,8 +91,10 @@ let ptyProcess;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 1280,
-    height: 720,
+    // width: 1280,
+    // height: 720,
+    width: 1920,
+    height: 1080,
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
@@ -119,7 +121,7 @@ function spawnShell() {
   ptyProcess = pty.spawn("bash", [], {
     name: "xterm-color",
     cols: 80,
-    rows: 30,
+    rows: 60,
     // cwd: process.cwd(),
     cwd: os.homedir(),
     env: process.env,

@@ -14,19 +14,39 @@ export default class Preload extends Phaser.Scene {
   }
 
   editorCreate() {
-    this.add.image(505, 360, "guapen").setScale(0.327);
+    const centerX = 1920 / 2;
+    const centerY = 1080 / 2;
 
-    const progressBarBg = this.add.rectangle(553, 361, 256, 20, 0x444444);
+    this.add.image(centerX, centerY, "guapen").setScale(0.327);
+
+    const progressBarBg = this.add.rectangle(
+      centerX - 128, 
+      centerY + 31, 
+      256, 
+      20, 
+      0x444444
+    );
     progressBarBg.setOrigin(0, 0);
 
-    const progressBar = this.add.rectangle(553, 361, 256, 20, 0xdddddd);
+    const progressBar = this.add.rectangle(
+      centerX - 128,
+      centerY + 31,
+      256,
+      20,
+      0xdddddd
+    );
     progressBar.setOrigin(0, 0);
-    
-    const loadingText = this.add.text(552, 329, "Loading...", {
-      fontFamily: "Arial",
-      fontSize: "20px",
-      color: "#e0e0e0",
-    });
+
+    const loadingText = this.add.text(
+      centerX - 128 + 1,
+      centerY,
+      "Loading...",
+      {
+        fontFamily: "Arial",
+        fontSize: "20px",
+        color: "#e0e0e0",
+      }
+    );
 
     new PreloadBarUpdaterScript(this, progressBar).awake();
   }

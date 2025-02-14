@@ -1031,19 +1031,39 @@ export default class Level extends Phaser.Scene {
 
 	create() {
 		this.cameras.main.setBackgroundColor('#87CEEB'); // Set background color to sky blue
-        this.cameras.main.setBounds(0, -1200, 2000, 1920); 
-        this.cameras.main.scrollY = -1920; // Start the camera at the bottom
+        this.cameras.main.setBounds(0, -1200, 2600, 2300); // Scaled from (0, -1200, 2000, 1920)
+        this.cameras.main.scrollY = -1920; // Scaled from -1920
 		this.cameras.main.pan(0, 1920, 3500, 'Power2');
         this.editorCreate();
+
+        // Shift all elements right by 20% of screen width
+        this.shiftElementsX(15, true);
+        this.shiftElementsY(15, true);
+        // Or shift by specific pixels:
+        // this.shiftElements(200); // shifts 200 pixels right
 
         const cursors = this.input.keyboard.createCursorKeys();
         this.events.on('update', () => {
             if (cursors.up.isDown) {
-                this.cameras.main.scrollY -= 8;
+                this.cameras.main.scrollY -= 12; // Scaled from 8
             } else if (cursors.down.isDown) {
-                this.cameras.main.scrollY += 8;
+                this.cameras.main.scrollY += 12; // Scaled from 8
             }
         });
+
+        // Add mouse wheel support
+        this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
+            // deltaY is positive when scrolling down and negative when scrolling up
+            this.cameras.main.scrollY += deltaY * 0.5; // Adjust 0.5 to control scroll speed
+            
+            // Clamp the camera position to prevent scrolling beyond bounds
+            this.cameras.main.scrollY = Phaser.Math.Clamp(
+                this.cameras.main.scrollY,
+                this.cameras.main.getBounds().top,
+                this.cameras.main.getBounds().bottom - this.cameras.main.height
+            );
+        });
+
 		// backnew
 		const cloud_6_new = this.add.image(332, -117, "cloud6");
 		cloud_6_new.scaleX = 1;
@@ -1237,6 +1257,35 @@ export default class Level extends Phaser.Scene {
 		});
 	}
 
+	shiftElementsX(shiftAmount, isPercentage = false) {
+        this.children.list.forEach(child => {
+            if (child instanceof Phaser.GameObjects.Image) {
+                if (isPercentage) {
+                    // If percentage, calculate pixel amount based on game width
+                    const pixelShift = (this.cameras.main.width * shiftAmount) / 100;
+                    child.x += pixelShift;
+                } else {
+                    // If pixels, shift by direct amount
+                    child.x += shiftAmount;
+                }
+            }
+        });
+    }
+
+	shiftElementsY(shiftAmount, isPercentage = false) {
+        this.children.list.forEach(child => {
+            if (child instanceof Phaser.GameObjects.Image) {
+                if (isPercentage) {
+                    // If percentage, calculate pixel amount based on game width
+                    const pixelShift = (this.cameras.main.width * shiftAmount) / 100;
+                    child.y += pixelShift;
+                } else {
+                    // If pixels, shift by direct amount
+                    child.y += shiftAmount;
+                }
+            }
+        });
+    }
 	/* END-USER-CODE */
 }
 

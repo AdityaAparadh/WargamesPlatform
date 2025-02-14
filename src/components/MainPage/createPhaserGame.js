@@ -55,8 +55,11 @@ export const createPhaserGame = (parentElement) => {
   console.log("Parent element:", parentElement);
 
   // Define fixed game inner resolution
-  const innerWidth = 1280;
-  const innerHeight = 720;
+  // const innerWidth = 1280;
+  // const innerHeight = 720;
+  const innerWidth = 1920;
+  const innerHeight = 1080;
+
 
   // The internal game resolution remains fixed (1280×720).
   // Phaser.Scale.ENVELOP will automatically scale the canvas
@@ -69,7 +72,7 @@ export const createPhaserGame = (parentElement) => {
     backgroundColor: "#242424",
     render: {
       antialias: true,  // enable smooth scaling (anti-aliasing)
-      pixelArt: false   // disable pixelated rendering
+      pixelArt: false // disable pixelated rendering
     },
     scale: {
       mode: Phaser.Scale.ENVELOP,         // automatically scales to completely cover the parent
