@@ -1,7 +1,11 @@
 import { useEffect, useRef } from "react";
 import createPhaserGame from "./createPhaserGame.js";
+import { usePage } from "../../hooks/usePage";
+import { loadLevel } from "../../utils/levelLoader";
+
 const Game = () => {
   const phaserContainerRef = useRef(null);
+  const { setCurrentPage } = usePage();  
 
   useEffect(() => {
     const game = createPhaserGame(phaserContainerRef.current);
@@ -19,12 +23,24 @@ const Game = () => {
       resizeObserver.observe(phaserContainerRef.current);
     }
 
+    // Listen for trigger-level-{n} events; adjust the range as needed.
+    const eventHandler = (e: CustomEvent) => {
+      const parts = e.type.split("-");
+      const lvl = parseInt(parts[2]);
+      loadLevel(lvl, setCurrentPage);
+    };
+    for (let i = 1; i <= 20; i++) {
+      window.addEventListener(`trigger-level-${i}`, eventHandler as EventListener);
+    }
+
     return () => {
       resizeObserver.disconnect();
-      window.removeEventListener("resize", handleResize);
+      for (let i = 1; i <= 20; i++) {
+        window.removeEventListener(`trigger-level-${i}`, eventHandler as EventListener);
+      }
       game.destroy(true);
     };
-  }, []);
+  }, [setCurrentPage]);
 
   return (
     <div

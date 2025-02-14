@@ -1,23 +1,23 @@
-import type React from "react";
-import { useState } from "react";
-import { SiDocker } from "react-icons/si";
+import type React from "react"
+import { useState } from "react"
+import { SiDocker } from "react-icons/si"
 
 interface TopbarProps {
-  levelName: string;
-  onEnter: (input: string) => void;
+  levelName: string
+  onEnter: (input: string) => void
 }
 
 const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onEnter(input);
-    setInput("");
-  };
+    e.preventDefault()
+    onEnter(input)
+    setInput("")
+  }
 
   return (
-    <header className="bg-navy-800 text-white p-4 flex items-center justify-between shadow-md">
+    <header className="bg-navy-800 text-white p-4 flex flex-wrap items-center justify-between shadow-md gap-4">
       <h1 className="text-xl font-semibold flex items-center space-x-2">
         <SiDocker size={70} className="text-4xl text-blue-400" />
         <span>{levelName}</span>
@@ -39,7 +39,9 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
         </button>
       </form>
     </header>
-  );
-};
+  )
+}
 
-export default Topbar;
+export default Topbar
+
+

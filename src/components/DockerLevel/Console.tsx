@@ -1,22 +1,21 @@
-import type React from "react";
-import { useEffect, useRef } from "react";
-import { Terminal } from "xterm";
-import { FitAddon } from "xterm-addon-fit";
-import { FiInfo } from "react-icons/fi";
-import "xterm/css/xterm.css";
-import { FaFlag } from "react-icons/fa";
+import type React from "react"
+import { useEffect, useRef } from "react"
+import { Terminal } from "xterm"
+import { FitAddon } from "xterm-addon-fit"
+import { FiInfo } from "react-icons/fi"
+import "xterm/css/xterm.css"
+import { FaFlag } from "react-icons/fa"
+import { currentRunScript } from "../../utils/levelLoader"
 
 const Console: React.FC = () => {
-  const terminalRef = useRef<HTMLDivElement>(null);
-  const term = useRef<Terminal | null>(null);
+  const terminalRef = useRef<HTMLDivElement>(null)
+  const term = useRef<Terminal | null>(null)
 
   useEffect(() => {
     if (terminalRef.current && !term.current) {
-      const { ipcRenderer } = window as any;
+      const { ipcRenderer } = window as any
       term.current = new Terminal({
         cursorBlink: true,
-        rows: 30,
-        cols: 80,
         theme: {
           background: "#1a2c4d",
           foreground: "#d0d0d0",
@@ -31,33 +30,44 @@ const Console: React.FC = () => {
           cyan: "#8be9fd",
           white: "#f8f8f2",
         },
-      });
+      })
 
-      const fitAddon = new FitAddon();
-      term.current.loadAddon(fitAddon);
-      fitAddon.fit();
-      window.addEventListener("resize", () => fitAddon.fit());
+      const fitAddon = new FitAddon()
+      term.current.loadAddon(fitAddon)
 
-      term.current.open(terminalRef.current);
-      ipcRenderer.send("terminal.keystroke", "\r");
+      const resizeTerminal = () => {
+        fitAddon.fit()
+        term.current?.resize(term.current.cols, term.current.rows)
+      }
+
+      window.addEventListener("resize", resizeTerminal)
+
+      term.current.open(terminalRef.current)
+      resizeTerminal()
+
+      setTimeout(() => {
+        const cmd = currentRunScript ? `bash \$WARGAMES_PATH\\${currentRunScript}\r` : "bash\r"
+        ipcRenderer.send("terminal.keystroke", cmd)
+        ipcRenderer.send("terminal.keystroke", "clear\r")
+      }, 500)
 
       const handleIncomingData = (_event: any, data: string) => {
-        term.current?.write(data);
-      };
-      ipcRenderer.on("terminal.incomingData", handleIncomingData);
+        term.current?.write(data)
+      }
+      ipcRenderer.on("terminal.incomingData", handleIncomingData)
 
       term.current.onData((data) => {
-        ipcRenderer.send("terminal.keystroke", data);
-      });
+        ipcRenderer.send("terminal.keystroke", data)
+      })
 
       return () => {
-        window.removeEventListener("resize", () => fitAddon.fit());
-        ipcRenderer.off("terminal.incomingData", handleIncomingData);
-        term.current?.dispose();
-        term.current = null;
-      };
+        window.removeEventListener("resize", resizeTerminal)
+        ipcRenderer.off("terminal.incomingData", handleIncomingData)
+        term.current?.dispose()
+        term.current = null
+      }
     }
-  }, []);
+  }, [])
 
   return (
     <div className="w-full h-full">
@@ -72,18 +82,17 @@ const Console: React.FC = () => {
           <div className="relative group">
             <FiInfo className="text-xl text-blue-400 cursor-pointer" />
             <div className="hidden group-hover:block absolute right-0 top-full mt-1 w-72 bg-navy-700 text-white text-xs p-3 rounded shadow-lg z-10">
-              Use the docker commands you learned in the console below to find
-              the flag for this level. Then submit it above.
+              Use the docker commands you learned in the console below to find the flag for this level. Then submit it
+              above.
             </div>
           </div>
         </div>
-        <div
-          ref={terminalRef}
-          className="flex-1 bg-navy-900 text-white"
-        />
+        <div ref={terminalRef} className="flex-1 bg-navy-900 text-white" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Console;
+export default Console
+
+
