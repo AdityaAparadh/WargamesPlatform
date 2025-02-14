@@ -115,3 +115,14 @@ docker ps -a
 
 # Step 7: Run Attacker Container
 docker pull yashkiran2004/attacker_image:2
+docker run -it --rm --network ctf_network --name attacker_container -v /var/run/docker.sock:/var/run/docker.sock yashkiran2004/attacker_image:2 /bin/bash
+
+# Step 8: Cleanup function but avoid running it immediately
+function cleanup {
+    echo "Cleaning up..."
+    for SERVICE in "${SERVICES[@]}"; do
+        docker rm -f "$SERVICE" 2>/dev/null
+    done
+    docker network rm ctf_network 2>/dev/null
+}
+trap cleanup EXIT

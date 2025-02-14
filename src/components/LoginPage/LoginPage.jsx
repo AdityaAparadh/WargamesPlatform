@@ -1,6 +1,9 @@
+import LoginPageApp from "./LoginPageApp";
+
+
 const LoginPage = ()=>{
     return(<div>
-        <h1>Kubernetes Level</h1>
+        <LoginPageApp />
     </div>)
 }
 export default LoginPage;

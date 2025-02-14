@@ -5,6 +5,11 @@ import type { Page } from "../hooks/usePage";
 export let currentLevel = 0;
 export let currentRunScript = "";
 
+/**
+ * Load a docker level by running preload script
+ * @param level Level number
+ * @param setPage Page setter function 
+ */
 export async function loadLevel(level: number, setPage: (p: Page) => void): Promise<void> {
   currentLevel = level;
 
@@ -26,7 +31,12 @@ export async function loadLevel(level: number, setPage: (p: Page) => void): Prom
   }
   setPage('DockerLevel');
 }
-
+/**
+ * Cleanup a docker level by running cleanup script
+ * @param level Level number
+ * @param setPage Page setter function 
+ * @returns 
+ */
 export async function cleanupLevel(level: number, setPage: (p: Page) => void): Promise<void> {
   const lvlData = levels.find((l: any) => l.level === level);
   if (!lvlData) return;
@@ -38,7 +48,12 @@ export async function cleanupLevel(level: number, setPage: (p: Page) => void): P
   }
   setPage('MainPage');
 }
-
+/**
+ * Restart a level by running cleanup and then preload 
+ * @param level Level number
+ * @param setPage Page setter function 
+ * @returns 
+ */
 export async function restartLevel(level: number, setPage: (p: Page) => void): Promise<void> {
   const lvlData = levels.find((l: any) => l.level === level);
   if (!lvlData) return;
