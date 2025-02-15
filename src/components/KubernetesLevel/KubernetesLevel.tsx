@@ -37,7 +37,7 @@ const KubernetesLevel = () => {
           <div className="stats-section">
             <div className="stat-item">
               <IoTrophy className="stat-icon" />
-              <span>{current_rank}</span>
+              <span>{current_rank == 0 ? "?" : current_rank}</span>
             </div>
             <div className="stat-item">
               <LuShell className="stat-icon" />
