@@ -10,12 +10,14 @@ import axios from 'axios';
 export default function LoginPageApp() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
+  const bgImagePath = process.env.NODE_ENV === 'production' 
+    ? 'bg.png' 
+    : '/public/bg.png';
   return (
     <>
       <div className="main">
       {/* <Scene /> */}
-      <img src='public/bg.png' className='w-screen h-screen ' ></img>
+      <img src={bgImagePath} className='w-screen h-screen ' ></img>
         <DockerWhale />
         <div className="code">
           <div className="code-container">

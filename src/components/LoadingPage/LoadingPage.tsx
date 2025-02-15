@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./LoadingPage.css";
 
 // Ensure the gif file is available at the specified path.
-const gifSrc = "public/loading.gif";
+// const gifSrc = "public/loading.gif";
 
 const messages = [
   "Pulling Images",
@@ -13,6 +13,10 @@ const messages = [
 const LoadingPage = () => {
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+
+  const gifSrc = process.env.NODE_ENV === 'production' 
+    ? 'loading.gif' 
+    : '/public/loading.gif';
 
   useEffect(() => {
     setIsVisible(true);

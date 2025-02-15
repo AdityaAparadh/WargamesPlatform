@@ -14,6 +14,9 @@ const KubernetesLevel = () => {
   const { current_score, current_rank } = useConfig();
   const [selectedOption, setSelectedOption] = useState("");
 
+  const bgImagePath = process.env.NODE_ENV === 'production' 
+    ? 'bg.png' 
+    : '/public/bg.png';
   const handleLogout = () => {
     clearAuth();
     setCurrentPage('LoginPage');
@@ -30,7 +33,7 @@ const KubernetesLevel = () => {
 
   return (
     <div className="kubernetes-container">
-      <img src='public/bg.png' className='background-image' />
+      <img src={bgImagePath} className='background-image' />
       
       <div className="ui-layer">
         <div className="top-bar">
