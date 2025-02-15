@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-const DEFAULT_PAGE = 'LoginPage' as const;
+const DEFAULT_PAGE = 'KubernetesLevel' as const;
 type Page = 'MainPage' | 'LoginPage' | 'Leaderboard' | 'KubernetesLevel' | 'DockerLevel' | 'LoadingPage';
 
 interface PageContextType {

@@ -1,56 +1,54 @@
 import React, { useState } from 'react'
-import './Login.css'  // Import the login styles
-import {usePage} from '../../../hooks/usePage'
+import './Login.css'
+import { usePage } from '../../../hooks/usePage'
+import { useAuth } from '../../../hooks/useAuth'
+import axios from 'axios'
+import config from '../../../../config.json'
 
 const Login = () => {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
+  const [error, setError] = useState('')
+  
+  const { setCurrentPage } = usePage()
+  const { setAuth } = useAuth()
 
-  const { setCurrentPage } = usePage();
-
-  const handleLogin = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    let isValid = true
-    setEmailError('')
-    setPasswordError('')
+    setError('')
 
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      setEmailError('Please enter a valid email address')
-      isValid = false
+    try {
+      const response = await axios.post(`${config.BACKEND_URI}/api/auth/login`, {
+        username,
+        password
+      })
+      
+      const { jwt } = response.data
+      setAuth(username, jwt)
+      setCurrentPage('MainPage')
+    } catch (err) {
+      if (err.response) {
+        switch (err.response.status) {
+          case 401:
+            setError('Invalid credentials')
+            break
+          case 404:
+            setError('User not found')
+            break
+          case 500:
+            setError('Server error. Please try again later')
+            break
+          default:
+            setError('An unexpected error occurred')
+        }
+      } else if (err.request) {
+        setError('Network error. Please check your internet connection')
+      } else {
+        setError('An unexpected error occurred')
+      }
+      
+      console.error('Login error:', err)
     }
-
-    // Validate password length
-    if (password.length < 6) {
-      setPasswordError('Password must be at least 6 characters')
-      isValid = false
-    }
-
-    if (isValid) {
-      alert('Login successful! (Demo only)')
-      setEmail('')
-      setPassword('')
-    }
-  }
-
-  const handleSocialLogin = (provider) => {
-    alert(`${provider} login would be implemented here`)
-  }
-
-  const handleForgotPassword = () => {
-    alert('Forgot password functionality not implemented')
-  }
-
-  const handleSignUp = () => {
-    alert('Sign up functionality not implemented')
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setCurrentPage('MainPage');
   }
 
   return (
@@ -61,18 +59,22 @@ const Login = () => {
       </div>
 
       <form id="loginForm" onSubmit={handleSubmit}>
+        {error && (
+          <div className="error-container">
+            <span className="error-message">{error}</span>
+          </div>
+        )}
+        
         <div className="form-group">
           <input
-            type="email"
             className="form-input"
-            id="email"
-            placeholder="Email address"
+            id="username"
+            placeholder="Username"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <i className="input-icon fas fa-envelope"></i>
-          {emailError && <span className="error-message" id="emailError">{emailError}</span>}
         </div>
 
         <div className="form-group">
@@ -86,7 +88,6 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <i className="input-icon fas fa-lock"></i>
-          {passwordError && <span className="error-message" id="passwordError">{passwordError}</span>}
         </div>
 
         <button type="submit" className="submit-button">Sign In</button>
@@ -95,4 +96,5 @@ const Login = () => {
   )
 }
 
-export default Login ;
+export default Login
+

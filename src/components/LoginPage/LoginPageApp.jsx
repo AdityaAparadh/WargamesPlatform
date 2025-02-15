@@ -2,21 +2,14 @@
 import { useState } from 'react'
 import DockerWhale from './components/DockerWhale'
 import Login from './components/Login'
-
+import {useAuth} from '../../hooks/useAuth';
 import './styles.css'
 import './pmndrs.css'
+import axios from 'axios';
 
 export default function LoginPageApp() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
-  const handleLogin = (e) => {
-    e.preventDefault()
-    // Handle login logic here if needed, or let Login component manage its own logic
-    console.log('Username:', username)
-    console.log('Password:', password)
-    
-  }
 
   return (
     <>

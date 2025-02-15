@@ -6,10 +6,15 @@ import { FiInfo } from "react-icons/fi"
 import "xterm/css/xterm.css"
 import { FaFlag } from "react-icons/fa"
 import { currentRunScript } from "../../utils/levelLoader"
+import { useConfig } from "../../hooks/useConfig"
+import DockerLevels from "../../../levels/DockerLevels.json"
 
 const Console: React.FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null)
   const term = useRef<Terminal | null>(null)
+  const { current_docker_level } = useConfig()
+
+  const currentLevelInfo = DockerLevels.find( _ => current_docker_level)
 
   useEffect(() => {
     if (terminalRef.current && !term.current) {
@@ -76,7 +81,7 @@ const Console: React.FC = () => {
           <div className="flex items-center space-x-2">
             <FaFlag className="text-2xl text-blue-400" />
             <span className="text-lg font-semibold text-white">
-              Level 1: Container Town {/** @todo Use props for this */}
+              Level {current_docker_level}: {currentLevelInfo?.name || 'Unknown Level'}
             </span>
           </div>
           <div className="relative group">

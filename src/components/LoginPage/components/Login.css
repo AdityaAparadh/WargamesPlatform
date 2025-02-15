@@ -237,14 +237,24 @@
 
 /* Error message styles */
 .error-message {
-  color: #ff4477;
-  font-size: 0.85rem;
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: 500;
   margin-top: 0.5rem;
-  display: none;
+  /* display: none; */  /* removed to display error text */
   animation: fadeIn 0.3s ease;
+}
+
+.error-container {
+  background-color: #ffebee;
+  border: 1px solid #ef5350;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
-} 
+}

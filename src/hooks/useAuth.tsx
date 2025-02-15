@@ -1,9 +1,9 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextType {
-    email: string | null;
+    username: string | null;
     token: string | null;
-    setAuth: (email: string, token: string) => void;
+    setAuth: (username: string, token: string) => void;
     clearAuth: () => void;
 }
 
@@ -14,21 +14,21 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
  */
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [email, setEmail] = useState<string | null>(null);
+    const [username , setUsername] = useState<string | null>(null);
     const [token, setToken] = useState<string | null>(null);
 
-    const setAuth = (email: string, token: string) => {
-        setEmail(email);
+    const setAuth = (username: string, token: string) => {
+        setUsername(username);
         setToken(token);
     };
 
     const clearAuth = () => {
-        setEmail(null);
+        setUsername(null);
         setToken(null);
     };
 
     return (
-        <AuthContext.Provider value={{ email, token, setAuth, clearAuth }}>
+        <AuthContext.Provider value={{ username , token, setAuth, clearAuth }}>
             {children}
         </AuthContext.Provider>
     );

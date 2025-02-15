@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import createPhaserGame from "./createPhaserGame.js";
 import { usePage } from "../../hooks/usePage";
 import { useAuth } from "../../hooks/useAuth";
+import { useConfig } from "../../hooks/useConfig.js";
 import { loadLevel } from "../../utils/levelLoader";
 import { IoTrophy} from "react-icons/io5";
 import { LuShell } from "react-icons/lu";
@@ -12,7 +13,8 @@ import "./GameUI.css";
 const Game = () => {
   const phaserContainerRef = useRef(null);
   const { setCurrentPage } = usePage();
-  const { email, clearAuth } = useAuth();
+  const { username, clearAuth } = useAuth();
+  const { current_score,current_rank } = useConfig();
 
   const handleLogout = () => {
     clearAuth();
@@ -62,15 +64,15 @@ const Game = () => {
           <div className="stats-section">
             <div className="stat-item">
               <IoTrophy className="stat-icon" />
-              <span>Rank: #42</span>
+              <span>{current_rank}</span>
             </div>
             <div className="stat-item">
               <LuShell className="stat-icon" />
-              <span>Score: 0</span>
+              <span>Score: {current_score}</span>
             </div>
           </div>
           <div className="user-section">
-            <span className="user-email">{email}</span>
+            <span className="user-email">{username}</span>
             <button onClick={handleLogout} className="logout-button">
               <FiLogOut className="button-icon" />
               Logout

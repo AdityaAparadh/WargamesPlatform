@@ -13,10 +13,10 @@ export let currentRunScript = "";
 export async function loadLevel(level: number, setPage: (p: Page) => void): Promise<void> {
   currentLevel = level;
 
-  if (level % 2 === 0) {
-    setPage('KubernetesLevel');
-    return;
-  }
+  // if (level % 2 === 0) {
+  //   setPage('KubernetesLevel');
+  //   return;
+  // }
   const lvlData = levels.find((l: any) => l.level === level);
   if (!lvlData) {
     console.error("Level data not found for level", level);
