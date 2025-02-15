@@ -17,6 +17,8 @@ export async function loadLevel(level: number, setPage: (p: Page) => void): Prom
   //   setPage('KubernetesLevel');
   //   return;
   // }
+
+
   const lvlData = levels.find((l: any) => l.level === level);
   if (!lvlData) {
     console.error("Level data not found for level", level);
@@ -42,6 +44,7 @@ export async function cleanupLevel(level: number, setPage: (p: Page) => void): P
   if (!lvlData) return;
   setPage('LoadingPage');
   try {
+    console.log(lvlData.cleanupScriptPath);
     await runCommand(lvlData.cleanupScriptPath);
   } catch (e) {
     console.error("Cleanup failed", e);
@@ -59,7 +62,9 @@ export async function restartLevel(level: number, setPage: (p: Page) => void): P
   if (!lvlData) return;
   setPage('LoadingPage');
   try {
-    await runCommand(lvlData.cleanupScriptPath);
+
+    console.log(lvlData.cleanupScriptPath);
+    await runCommand(`$WARGAMES_PATH/` + lvlData.cleanupScriptPath);
     await runCommand(lvlData.preloadScriptPath);
   } catch (e) {
     console.error("Restart failed", e);

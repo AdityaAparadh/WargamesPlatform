@@ -17,6 +17,7 @@
     "node-pty-prebuilt-multiarch": "^0.10.1-pre.5",
     "phaser": "^3.87.0",
     "react": "^18.2.0",
+    "react-confetti": "^6.2.2",
     "react-dom": "^18.2.0",
     "react-icons": "^5.4.0",
     "terser": "^5.39.0",

@@ -17,8 +17,16 @@ const Console: React.FC = () => {
   const currentLevelInfo = DockerLevels.find( _ => current_docker_level)
 
   useEffect(() => {
-    if (terminalRef.current && !term.current) {
-      const { ipcRenderer } = window as any
+    // Wait for IPC to be ready
+    const initializeTerminal = async () => {
+      if (!terminalRef.current || term.current) return;
+      
+      const { ipcRenderer } = window as any;
+      if (!ipcRenderer) {
+        console.error('IPC renderer not available');
+        return;
+      }
+
       term.current = new Terminal({
         cursorBlink: true,
         theme: {
@@ -35,44 +43,52 @@ const Console: React.FC = () => {
           cyan: "#8be9fd",
           white: "#f8f8f2",
         },
-      })
+      });
 
-      const fitAddon = new FitAddon()
-      term.current.loadAddon(fitAddon)
+      const fitAddon = new FitAddon();
+      term.current.loadAddon(fitAddon);
 
       const resizeTerminal = () => {
-        fitAddon.fit()
-        term.current?.resize(term.current.cols, term.current.rows)
+        fitAddon.fit();
+        term.current?.resize(term.current.cols, term.current.rows);
+      };
+
+      window.addEventListener("resize", resizeTerminal);
+
+      term.current.open(terminalRef.current);
+      resizeTerminal();
+
+      // Wait for terminal to be fully initialized
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      if (currentRunScript) {
+        const cmd = `bash \$WARGAMES_PATH\\${currentRunScript}\r`;
+        console.log("CMD:", cmd)  ;
+        ipcRenderer.send("terminal.keystroke", cmd);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        ipcRenderer.send("terminal.keystroke", "clear\r");
       }
-
-      window.addEventListener("resize", resizeTerminal)
-
-      term.current.open(terminalRef.current)
-      resizeTerminal()
-
-      setTimeout(() => {
-        const cmd = currentRunScript ? `bash \$WARGAMES_PATH\\${currentRunScript}\r` : "bash\r"
-        ipcRenderer.send("terminal.keystroke", cmd)
-        ipcRenderer.send("terminal.keystroke", "clear\r")
-      }, 500)
 
       const handleIncomingData = (_event: any, data: string) => {
-        term.current?.write(data)
-      }
-      ipcRenderer.on("terminal.incomingData", handleIncomingData)
+        term.current?.write(data);
+      };
+
+      ipcRenderer.on("terminal.incomingData", handleIncomingData);
 
       term.current.onData((data) => {
-        ipcRenderer.send("terminal.keystroke", data)
-      })
+        ipcRenderer.send("terminal.keystroke", data);
+      });
 
       return () => {
-        window.removeEventListener("resize", resizeTerminal)
-        ipcRenderer.off("terminal.incomingData", handleIncomingData)
-        term.current?.dispose()
-        term.current = null
-      }
-    }
-  }, [])
+        window.removeEventListener("resize", resizeTerminal);
+        ipcRenderer.off("terminal.incomingData", handleIncomingData);
+        term.current?.dispose();
+        term.current = null;
+      };
+    };
+
+    initializeTerminal();
+  }, [currentRunScript]);
 
   return (
     <div className="w-full h-full">

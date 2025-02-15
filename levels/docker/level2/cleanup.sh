@@ -5,3 +5,4 @@ docker rmi -f $(docker images -q) 2>/dev/null || true
 docker volume rm $(docker volume ls -q) 2>/dev/null || true
 docker network prune -f 2>/dev/null || true
 exit 0
+
