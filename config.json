@@ -1,3 +1,4 @@
 {
-    "BACKEND_URI": "http://localhost:9563"
+    "BACKEND_URI": "http://localhost:9563",
+    "UPDATE_TIMER": 30
 }
