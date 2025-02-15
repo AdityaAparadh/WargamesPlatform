@@ -161,3 +161,31 @@ button:active {
   margin-right: 8px;
   stroke-width: 2;
 }
+
+.leaderboard-button {
+  position: fixed;
+  bottom: 104px; /* 24px + 64px + 16px (button height + margin) */
+  left: 24px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(41, 98, 255, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.leaderboard-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(41, 98, 255, 1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.leaderboard-logo {
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+}

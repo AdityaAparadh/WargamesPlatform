@@ -8,6 +8,7 @@ import { IoTrophy} from "react-icons/io5";
 import { LuShell } from "react-icons/lu";
 import { FiLogOut } from "react-icons/fi";
 import { SiKubernetes } from "react-icons/si";
+import { MdLeaderboard } from "react-icons/md"; // Add this import
 import "./GameUI.css";
 
 const Game = () => {
@@ -23,6 +24,10 @@ const Game = () => {
 
   const handleKubernetesClick = () => {
     setCurrentPage('KubernetesLevel');
+  };
+
+  const handleLeaderboardClick = () => {
+    setCurrentPage('Leaderboard');
   };
 
   useEffect(() => {
@@ -79,6 +84,13 @@ const Game = () => {
             </button>
           </div>
         </div>
+
+        <button
+          onClick={handleLeaderboardClick}
+          className="leaderboard-button"
+        >
+          <MdLeaderboard className="leaderboard-logo" />
+        </button>
 
         <button
           onClick={handleKubernetesClick}
