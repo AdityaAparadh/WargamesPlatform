@@ -1,27 +1,31 @@
 import { useEffect, useRef } from "react";
 import createPhaserGame from "./createPhaserGame.js";
 import { usePage } from "../../hooks/usePage";
+import { useAuth } from "../../hooks/useAuth";
 import { loadLevel } from "../../utils/levelLoader";
+import { IoTrophy} from "react-icons/io5";
+import { LuShell } from "react-icons/lu";
+import { FiLogOut } from "react-icons/fi";
+import { SiKubernetes } from "react-icons/si";
+import "./GameUI.css";
 
 const Game = () => {
   const phaserContainerRef = useRef(null);
-  const { setCurrentPage } = usePage();  
+  const { setCurrentPage } = usePage();
+  const { email, clearAuth } = useAuth();
+
+  const handleLogout = () => {
+    clearAuth();
+    setCurrentPage('LoginPage');
+  };
+
+  const handleKubernetesClick = () => {
+    setCurrentPage('KubernetesLevel');
+  };
 
   useEffect(() => {
     const game = createPhaserGame(phaserContainerRef.current);
 
-    // const handleResize = () => {
-    //   const container = phaserContainerRef.current;
-    //   if (container) {
-    //     game.scale.resize(container.clientWidth, container.clientHeight);
-    //   }
-    // };
-    // const resizeObserver = new ResizeObserver(handleResize);
-    // if (phaserContainerRef.current) {
-    //   resizeObserver.observe(phaserContainerRef.current);
-    // }
-
-    // Listen for trigger-level-{n} events; adjust the range as needed.
     const eventHandler = (e: CustomEvent) => {
       const parts = e.type.split("-");
       const lvl = parseInt(parts[2]);
@@ -37,7 +41,6 @@ const Game = () => {
     }
 
     return () => {
-      // resizeObserver.disconnect();
       for (let i = 1; i <= 20; i++) {
         window.removeEventListener(`trigger-level-${i}`, eventHandler as EventListener);
       }
@@ -47,18 +50,42 @@ const Game = () => {
   }, [setCurrentPage]);
 
   return (
-    <div
-      id="phaser-container"
-      ref={phaserContainerRef}
-      style={{ 
-        position: 'absolute',
-        width: "100vw",
-        height: "100vh",
-        top: 0,
-        left: 0,
-        overflow: 'hidden'
-      }}
-    ></div>
+    <div className="game-container">
+      <div
+        id="phaser-container"
+        ref={phaserContainerRef}
+        className="game-canvas"
+      ></div>
+
+      <div className="ui-layer">
+        <div className="top-bar">
+          <div className="stats-section">
+            <div className="stat-item">
+              <IoTrophy className="stat-icon" />
+              <span>Rank: #42</span>
+            </div>
+            <div className="stat-item">
+              <LuShell className="stat-icon" />
+              <span>Score: 0</span>
+            </div>
+          </div>
+          <div className="user-section">
+            <span className="user-email">{email}</span>
+            <button onClick={handleLogout} className="logout-button">
+              <FiLogOut className="button-icon" />
+              Logout
+            </button>
+          </div>
+        </div>
+
+        <button
+          onClick={handleKubernetesClick}
+          className="k8s-button"
+        >
+          <SiKubernetes className="k8s-logo" />
+        </button>
+      </div>
+    </div>
   );
 };
 

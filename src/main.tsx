@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { PageProvider } from './hooks/usePage'
+import { AuthProvider } from './hooks/useAuth';
+import { ConfigProvider } from './hooks/useConfig';
 
 // Disable default zoom shortcuts (Ctrl++, Ctrl--, Ctrl+=)
 document.addEventListener('keydown', (e) => {
@@ -13,9 +15,14 @@ document.addEventListener('keydown', (e) => {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
+  <ConfigProvider>
+
+  <AuthProvider>
     <PageProvider>
       <App />
     </PageProvider>
+  </AuthProvider>
+  </ConfigProvider>
   // </React.StrictMode>,
 )
 

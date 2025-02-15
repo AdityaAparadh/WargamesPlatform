@@ -1,4 +1,4 @@
-import Scene from './components/Scene'
+// import Scene from './components/Scene'
 import { useState } from 'react'
 import DockerWhale from './components/DockerWhale'
 import Login from './components/Login'
@@ -20,8 +20,9 @@ export default function LoginPageApp() {
 
   return (
     <>
-      <Scene />
       <div className="main">
+      {/* <Scene /> */}
+      <img src='public/bg.png' className='w-screen h-screen ' ></img>
         <DockerWhale />
         <div className="code">
           <div className="code-container">

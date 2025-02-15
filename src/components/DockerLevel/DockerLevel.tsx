@@ -4,7 +4,7 @@ import Console from "./Console";
 import Tools from "./Tools";
 import { usePage } from "../../hooks/usePage";
 import { cleanupLevel, restartLevel, currentLevel } from "../../utils/levelLoader";
-
+import "./Term.css"
 const DockerLevel: React.FC = () => {
   const { setCurrentPage } = usePage();
 

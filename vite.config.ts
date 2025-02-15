@@ -23,6 +23,7 @@ export default defineConfig({
     exclude: ["node-pty-prebuilt-multiarch"],
   },
   build: {
+    minify: 'terser',
     commonjsOptions: {
       transformMixedEsModules: true,
     },

@@ -19,6 +19,7 @@ const Tools: React.FC<ToolsProps> = ({ onBack, onReset, onCheatsheet }) => {
           <FaArrowLeft className="text-blue-400" />
           <span>Back</span>
         </button>
+        <div style={{ width: "20px" }}></div>
         <div className="w-40"></div>
         <button
           onClick={onReset}
