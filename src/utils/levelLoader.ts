@@ -27,7 +27,10 @@ export async function loadLevel(level: number, setPage: (p: Page) => void): Prom
   setPage('LoadingPage');
   currentRunScript = lvlData.runScriptPath;
   try {
-    await runCommand(lvlData.preloadScriptPath);
+    const PATH = `$WARGAMES_PATH/` + lvlData.preloadScriptPath;
+    console.log("PRELOAD PATH: " + PATH);
+    // await runCommand( `$WARGAMES_PATH/` + lvlData.preloadScriptPath);
+    await runCommand(PATH);
   } catch (e) {
     console.error("Preload failed", e);
   }
@@ -45,7 +48,7 @@ export async function cleanupLevel(level: number, setPage: (p: Page) => void): P
   setPage('LoadingPage');
   try {
     console.log(lvlData.cleanupScriptPath);
-    await runCommand(lvlData.cleanupScriptPath);
+    await runCommand( `$WARGAMES_PATH/` + lvlData.cleanupScriptPath);
   } catch (e) {
     console.error("Cleanup failed", e);
   }
@@ -65,7 +68,7 @@ export async function restartLevel(level: number, setPage: (p: Page) => void): P
 
     console.log(lvlData.cleanupScriptPath);
     await runCommand(`$WARGAMES_PATH/` + lvlData.cleanupScriptPath);
-    await runCommand(lvlData.preloadScriptPath);
+    await runCommand( `$WARGAMES_PATH/` + lvlData.preloadScriptPath);
   } catch (e) {
     console.error("Restart failed", e);
   }

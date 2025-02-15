@@ -17,7 +17,7 @@ export default class Preload extends Phaser.Scene {
     const centerX = 1920 / 2;
     const centerY = 1080 / 2;
 
-    this.add.image(centerX, centerY, "guapen").setScale(0.327);
+    // this.add.image(centerX, centerY, "guapen").setScale(0.327);
 
     const progressBarBg = this.add.rectangle(
       centerX - 128, 
