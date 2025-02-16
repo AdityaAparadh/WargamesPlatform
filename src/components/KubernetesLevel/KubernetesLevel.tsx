@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePage } from "../../hooks/usePage";
 import { useAuth } from "../../hooks/useAuth";
 import { useConfig } from "../../hooks/useConfig";
@@ -6,13 +6,24 @@ import { IoTrophy } from "react-icons/io5";
 import { LuShell } from "react-icons/lu";
 import { FiLogOut } from "react-icons/fi";
 import { FaDocker } from "react-icons/fa";
+import config from '../../../config.json';
+import ReactConfetti from 'react-confetti';
 import "./KubernetesLevel.css";
+
+interface QuizQuestion {
+  question: string;
+  options: string[];
+  question_number: number;
+}
 
 const KubernetesLevel = () => {
   const { setCurrentPage } = usePage();
-  const { username, clearAuth } = useAuth();
-  const { current_score, current_rank } = useConfig();
+  const { username, clearAuth, token } = useAuth();
+  const { current_score, current_rank, current_kube_level, setCurrentKubeLevel, setCurrentScore } = useConfig();
   const [selectedOption, setSelectedOption] = useState("");
+  const [question, setQuestion] = useState<QuizQuestion | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [error, setError] = useState<string>("");
 
   const bgImagePath = process.env.NODE_ENV === 'production' 
     ? 'bg.png' 
@@ -26,13 +37,87 @@ const KubernetesLevel = () => {
     setCurrentPage('MainPage');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const fetchQuestion = async (level: number) => {
+    if (level > config.MAX_KUBES_LEVEL) {
+      setQuestion(null);
+      return;
+    }
+    try {
+      const response = await fetch(`${config.BACKEND_URI}/api/quiz/getQuestion/${level}`, {
+        headers: {
+          'Authorization': `${token}`
+        }
+      });
+      
+      if (response.status === 401) {
+        clearAuth();
+        setCurrentPage('LoginPage');
+        return;
+      }
+
+      const data = await response.json();
+      setQuestion(data);
+      setError("");
+    } catch (err) {
+      setError("Failed to fetch question");
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestion(current_kube_level);
+  }, [current_kube_level]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle quiz submission logic here
+    if (!selectedOption) return;
+
+    try {
+      const optionIndex = question?.options.indexOf(selectedOption) ?? -1;
+      if (optionIndex === -1) return;
+
+      const response = await fetch(`${config.BACKEND_URI}/api/quiz/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
+        body: JSON.stringify({
+          currentLevel: current_kube_level,
+          option: optionIndex + 1
+        })
+      });
+
+      if (response.status === 401) {
+        clearAuth();
+        setCurrentPage('LoginPage');
+        return;
+      }
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setShowConfetti(true);
+        setCurrentScore(data.totalScore);
+      } else {
+        setError("Incorrect answer!");
+      }
+
+      // Always move to next question after 2 seconds
+      setTimeout(() => {
+        setShowConfetti(false);
+        setError("");
+        setSelectedOption("");
+        setCurrentKubeLevel(current_kube_level + 1);
+      }, 2000);
+
+    } catch (err) {
+      setError("Failed to submit answer");
+    }
   };
 
   return (
     <div className="kubernetes-container">
+      {showConfetti && <ReactConfetti />}
       <img src={bgImagePath} className='background-image' />
       
       <div className="ui-layer">
@@ -60,35 +145,52 @@ const KubernetesLevel = () => {
           <div className="quiz-content">
             <h2>Kubernetes Quiz</h2>
             
-            <div className="question-container">
-              <p>What is the primary purpose of Kubernetes?</p>
-            </div>
-
-            <form onSubmit={handleSubmit}>
-              <div className="options-container">
-                {[
-                  "Container orchestration",
-                  "Database management",
-                  "Frontend development",
-                  "Network security"
-                ].map((option, index) => (
-                  <label key={index} className="option-label">
-                    <input
-                      type="radio"
-                      name="answer"
-                      value={option}
-                      checked={selectedOption === option}
-                      onChange={(e) => setSelectedOption(e.target.value)}
-                    />
-                    <span className="option-text">{option}</span>
-                  </label>
-                ))}
+            {current_kube_level > config.MAX_KUBES_LEVEL ? (
+              <div className="completion-message">
+                <h3>🎉 Congratulations! 🎉</h3>
+                <p>You have completed all Kubernetes questions!</p>
+                {/* <p>Final Score: {current_score}</p> */}
               </div>
+            ) : (
+              <>
+                <div className="question-container">
+                  {error ? (
+                    <p className="error-message">{error}</p>
+                  ) : (
+                    <p>{question?.question ?? "Loading..."}</p>
+                  )}
+                </div>
 
-              <button type="submit" className="submit-button">
-                Submit Answer
-              </button>
-            </form>
+                <form onSubmit={handleSubmit}>
+                  <div className="options-container">
+                    {question && question.options ? (
+                      question.options.map((option, index) => (
+                        <label key={index} className="option-label">
+                          <input
+                            type="radio"
+                            name="answer"
+                            value={option}
+                            checked={selectedOption === option}
+                            onChange={(e) => setSelectedOption(e.target.value)}
+                          />
+                          <span className="option-text">{option}</span>
+                        </label>
+                      ))
+                    ) : (
+                      <p>Loading options...</p>
+                    )}
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    className="submit-button"
+                    disabled={!question || !selectedOption}
+                  >
+                    Submit Answer
+                  </button>
+                </form>
+              </>
+            )}
           </div>
         </div>
 

@@ -15,9 +15,15 @@ import LoadingPage from "./components/LoadingPage/LoadingPage";
 function App() {
   const { currentPage, setCurrentPage } = usePage();
   const { token, username } = useAuth();
-  const { setCurrentScore, setCurrentRank, setLeaderboard } = useConfig();
+  const { 
+    setCurrentScore, 
+    setCurrentRank, 
+    setLeaderboard, 
+    setCurrentDockerLevel, 
+    setCurrentKubeLevel 
+  } = useConfig();
   
-  const scoreIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const statusIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const leaderboardIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -34,23 +40,27 @@ function App() {
   useEffect(() => {
     if (!token) return;
 
-    const updateScore = async () => {
+    const updateStatus = async () => {
       try {
-        const response = await axios.get(`${config.BACKEND_URI}/api/leaderboard/getScore`, {
+        const response = await axios.get(`${config.BACKEND_URI}/api/leaderboard/status`, {
           headers: { Authorization: token }
         });
-        setCurrentScore(response.data.score);
+        const { score, rank, currentdockerLevel, currentkubesLevel } = response.data;
+        setCurrentScore(score);
+        setCurrentRank(rank);
+        setCurrentDockerLevel(currentdockerLevel);
+        setCurrentKubeLevel(currentkubesLevel);
       } catch (error) {
-        console.error("Error fetching score:", error);
+        console.error("Error fetching status:", error);
       }
     };
 
-    if (scoreIntervalRef.current) clearInterval(scoreIntervalRef.current);
-    updateScore();
-    scoreIntervalRef.current = setInterval(updateScore, config.UPDATE_TIMER * 1000);
+    if (statusIntervalRef.current) clearInterval(statusIntervalRef.current);
+    updateStatus();
+    statusIntervalRef.current = setInterval(updateStatus, config.UPDATE_TIMER * 1000);
 
     return () => {
-      if (scoreIntervalRef.current) clearInterval(scoreIntervalRef.current);
+      if (statusIntervalRef.current) clearInterval(statusIntervalRef.current);
     };
   }, [token]);
 
@@ -60,16 +70,8 @@ function App() {
     const updateLeaderboard = async () => {
       try {
         const response = await axios.get(`${config.BACKEND_URI}/api/leaderboard`);
-        const { hidden, data } = response.data;
+        const { data } = response.data;
         setLeaderboard(data);
-
-        if (hidden) {
-          const userInList = data.find(entry => entry.username === username);
-          setCurrentRank(!userInList ? 0 : data.findIndex(entry => entry.username === username) + 6);
-        } else {
-          const userIndex = data.findIndex(entry => entry.username === username);
-          setCurrentRank(userIndex !== -1 ? userIndex + 1 : 0);
-        }
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
       }

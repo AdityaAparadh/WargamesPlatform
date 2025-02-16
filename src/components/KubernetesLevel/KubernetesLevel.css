@@ -129,3 +129,28 @@
   height: 40px;
   color: #ffffff;
 }
+
+.error-message {
+  color: #ff4444;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.completion-message {
+  padding: 2rem;
+  text-align: center;
+}
+
+.completion-message h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #ffd700, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.completion-message p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0.5rem 0;
+}

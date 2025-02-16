@@ -28,7 +28,7 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
     const [leaderboard, setLeaderboardState] = useState<LeaderboardEntry[]>([]);
     const [current_rank, setCurrentRankState] = useState<number>(0);
     const [current_docker_level, setCurrentDockerLevelState] = useState<number>(1);
-    const [current_kube_level, setCurrentKubeLevelState] = useState<number>(1);
+    const [current_kube_level, setCurrentKubeLevelState] = useState<number>(2);
     const [current_score, setCurrentScoreState] = useState<number>(0);
 
     const setLeaderboard = (data: LeaderboardEntry[]) => setLeaderboardState(data);

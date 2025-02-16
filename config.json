@@ -1,4 +1,5 @@
 {
-    "BACKEND_URI": "http://localhost:9563",
-    "UPDATE_TIMER": 30
+    "BACKEND_URI": "https://wargames.wcewlug.org",
+    "UPDATE_TIMER": 30,
+    "MAX_KUBES_LEVEL": 10
 }
