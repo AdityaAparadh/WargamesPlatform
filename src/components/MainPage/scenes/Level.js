@@ -1030,6 +1030,15 @@ export default class Level extends Phaser.Scene {
 	// Write your code here
 
 	create() {
+		// NEW: Add animated water background
+		// This tileSprite covers the full game canvas (1920×1080) and is scaled 2x so it won't show gaps during scrolling.
+		this.water = this.add.tileSprite(0, 0, 1920, 1080, "water");
+		this.water.setOrigin(0, 0);           // Anchor at top-left
+		this.water.setScale(1.0);             // Scale the image 2x
+		this.water.setScrollFactor(0);        // Fix it relative to the camera (background)
+		this.water.setDepth(-10);             // Ensure it is rendered below all other objects
+
+		// Existing camera configuration and level setup
 		this.cameras.main.setBackgroundColor('#87CEEB'); // Set background color to sky blue
         this.cameras.main.setBounds(0, -1200, 2600, 2300); // Scaled from (0, -1200, 2000, 1920)
         this.cameras.main.scrollY = -1920; // Scaled from -1920
@@ -1239,12 +1248,22 @@ export default class Level extends Phaser.Scene {
 		cloud_6Extra.scaleX = 0.3;
 		cloud_6Extra.scaleY = 0.3;
 		cloud_6Extra.setScrollFactor(0.1);
-        // NEW: Add onclick for all num tiles
-        // This code iterates over every child in the scene
-        // and if the texture key starts with "num", it makes it interactive.
+
+		// NEW: Shift all clouds 20px downwards
+		this.children.list.forEach(child => {
+			// Check if the child's texture key contains "cloud" (case-insensitive)
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key.toLowerCase().includes("cloud")) {
+				child.y += 180;
+			}
+		});
+
+		// NEW: Add onclick for all num tiles
+		// This code iterates over every child in the scene
+		// and if the texture key starts with "num", it makes it interactive.
 		this.children.list.forEach(child => {
 			// Check if the child is an image and its texture key starts with "num"
-			if (child instanceof Phaser.GameObjects.Image && child.texture.key.startsWith("num")) {
+			// if key == num1
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num1") {
 				child.setInteractive(); // Ensure the image is interactive
 				child.on('pointerdown', () => {
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
@@ -1252,9 +1271,119 @@ export default class Level extends Phaser.Scene {
 						detail: { terminalId: child.texture.key }
 					});
 					window.dispatchEvent(event);
+					console.log("trigger-level-1");
+				});
+			}
+			// if key == num2
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num2") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-2', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num3
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num3") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-3', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num4
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num4") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-4', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num5
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num5") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-5', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num6
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num6") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-6', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num7
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num7") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-7', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num8
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num8") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-8', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num9
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num9") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-9', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
+				});
+			}
+			// if key == num10
+			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num10") {
+				child.setInteractive(); // Ensure the image is interactive
+				child.on('pointerdown', () => {
+					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					const event = new CustomEvent('trigger-level-10', {
+						detail: { terminalId: child.texture.key }
+					});
+					window.dispatchEvent(event);
 				});
 			}
 		});
+
+	}
+
+	// NEW: Add an update method to animate the water background
+	update() {
+		if (this.water) {
+			// Move the tile texture to simulate water movement.
+			this.water.tilePositionX += 0.1; // Adjust horizontal speed as needed
+			// this.water.tilePositionY += 0.2; // Optional vertical movement for extra effect
+		}
 	}
 
 	shiftElementsX(shiftAmount, isPercentage = false) {
@@ -1290,5 +1419,3 @@ export default class Level extends Phaser.Scene {
 }
 
 /* END OF COMPILED CODE */
-
-// You can write more code here

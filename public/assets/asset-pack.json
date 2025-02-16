@@ -567,6 +567,11 @@
                 "url": "assets/woodbridge.png",
                 "type": "image",
                 "key": "woodbridge"
+            },
+            {
+                "url": "assets/water.png",
+                "type": "image",
+                "key": "water"
             }
         ]
     },
