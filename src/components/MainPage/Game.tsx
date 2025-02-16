@@ -15,7 +15,7 @@ const Game = () => {
   const phaserContainerRef = useRef(null);
   const { setCurrentPage } = usePage();
   const { username, clearAuth } = useAuth();
-  const { current_score,current_rank } = useConfig();
+  const { current_docker_level, current_score, current_rank } = useConfig();
 
   const handleLogout = () => {
     clearAuth();
@@ -32,6 +32,7 @@ const Game = () => {
 
   useEffect(() => {
     const game = createPhaserGame(phaserContainerRef.current);
+    game.registry.set("currentDockerLevel", current_docker_level);
 
     const eventHandler = (e: CustomEvent) => {
       const parts = e.type.split("-");

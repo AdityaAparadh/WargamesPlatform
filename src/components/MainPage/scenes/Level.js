@@ -11,7 +11,11 @@ export default class Level extends Phaser.Scene {
 		// Write your code here.
 		/* END-USER-CTR-CODE */
 	}
-
+	init() {
+		const dockerLevel = this.registry.get("currentDockerLevel");
+		this.dockerLevel = dockerLevel; // ADDED: store docker level for pointerdown events
+		// console.log("Current Docker Level from useConfig:", dockerLevel);
+	}
 	/** @returns {void} */
 	editorCreate() {
 		const tile_81 = this.add.image(1621, -1207, "tile1");
@@ -1056,6 +1060,7 @@ export default class Level extends Phaser.Scene {
 		this.water.setScale(1.0);             // Scale the image 2x
 		this.water.setScrollFactor(0);        // Fix it relative to the camera (background)
 		this.water.setDepth(-10);             // Ensure it is rendered below all other objects
+		this.water.setAlpha(0.5);
 
 		// Existing camera configuration and level setup
 		this.cameras.main.setBackgroundColor('#87CEEB'); // Set background color to sky blue
@@ -1280,6 +1285,22 @@ export default class Level extends Phaser.Scene {
 		// This code iterates over every child in the scene
 		// and if the texture key starts with "num", it makes it interactive.
 		this.children.list.forEach(child => {
+			if (child instanceof Phaser.GameObjects.Image && /^num\d+$/.test(child.texture.key)) {
+				// Store the original scale so we can restore it later.
+				child.setData('originalScaleX', child.scaleX);
+				child.setData('originalScaleY', child.scaleY);
+				child.setInteractive();
+
+				// When pointer is over, enlarge the image slightly.
+				child.on('pointerover', () => {
+					child.setScale(child.getData('originalScaleX') * 1.1, child.getData('originalScaleY') * 1.1);
+				});
+
+				// When pointer leaves, return to the original scale.
+				child.on('pointerout', () => {
+					child.setScale(child.getData('originalScaleX'), child.getData('originalScaleY'));
+				});
+			}
 			// Check if the child is an image and its texture key starts with "num"
 			// if key == num1
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num1") {
@@ -1290,24 +1311,41 @@ export default class Level extends Phaser.Scene {
 						detail: { terminalId: child.texture.key }
 					});
 					window.dispatchEvent(event);
-					console.log("trigger-level-1");
 				});
 			}
 			// if key == num2
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num2") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 2) {
+					child.setTexture("num12"); // Change to grayscale (2+10 = 12)
+				} else {
+					child.setTexture("num2");
+				}
 				child.on('pointerdown', () => {
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
-					const event = new CustomEvent('trigger-level-2', {
-						detail: { terminalId: child.texture.key }
-					});
-					window.dispatchEvent(event);
+					if (this.dockerLevel < 2) {
+					alert("Please solve the previous level");
+					return;
+				}
+				const event = new CustomEvent('trigger-level-2', {
+					detail: { terminalId: child.texture.key }
+				});
+				window.dispatchEvent(event);
 				});
 			}
 			// if key == num3
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num3") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 3) {
+					child.setTexture("num13"); // Change to grayscale (3+10 = 13)
+				} else {
+					child.setTexture("num3");
+				}
 				child.on('pointerdown', () => {
+					if (this.dockerLevel < 3) {
+						alert("Please solve the previous level");
+						return;
+					}
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-3', {
 						detail: { terminalId: child.texture.key }
@@ -1318,7 +1356,16 @@ export default class Level extends Phaser.Scene {
 			// if key == num4
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num4") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 4) {
+					child.setTexture("num14"); // Change to grayscale (4+10 = 14)
+				} else {
+					child.setTexture("num4");
+				}
 				child.on('pointerdown', () => {
+					if (this.dockerLevel < 4) {
+						alert("Please solve the previous level");
+						return;
+					}
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-4', {
 						detail: { terminalId: child.texture.key }
@@ -1329,7 +1376,16 @@ export default class Level extends Phaser.Scene {
 			// if key == num5
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num5") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 5) {
+					child.setTexture("num15"); // Change to grayscale (5+10 = 15)
+				} else {
+					child.setTexture("num5");
+				}
 				child.on('pointerdown', () => {
+					if (this.dockerLevel < 5) {
+						alert("Please solve the previous level");
+						return;
+					}
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-5', {
 						detail: { terminalId: child.texture.key }
@@ -1340,7 +1396,17 @@ export default class Level extends Phaser.Scene {
 			// if key == num6
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num6") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 6) {
+					child.setTexture("num16"); // Change to grayscale (6+10 = 16)
+				} else {
+					child.setTexture("num6");
+				}
 				child.on('pointerdown', () => {
+					if (this.dockerLevel < 6) {
+						child.setTexture("num16"); // Change to grayscale (6+10 = 16)
+						alert("Please solve the previous level");
+						return;
+					}
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-6', {
 						detail: { terminalId: child.texture.key }
@@ -1351,8 +1417,19 @@ export default class Level extends Phaser.Scene {
 			// if key == num7
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num7") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 7) {
+					child.setTexture("num17"); // Change to grayscale (7+10 = 17)
+				}
+				else {
+					child.setTexture("num7");
+				}
 				child.on('pointerdown', () => {
-					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					if (this.dockerLevel < 7) {
+						alert("Please solve the previous level");
+						return;
+					}
+					// ADDED: Check if the current docker level is less than 7
+					// Existing behavior
 					const event = new CustomEvent('trigger-level-7', {
 						detail: { terminalId: child.texture.key }
 					});
@@ -1362,8 +1439,17 @@ export default class Level extends Phaser.Scene {
 			// if key == num8
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num8") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 8) {
+					child.setTexture("num18"); // Change to grayscale (8+10 = 18)
+				} else {
+					child.setTexture("num8");
+				}
 				child.on('pointerdown', () => {
-					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					if (this.dockerLevel < 8) {
+						alert("Please solve the previous level");
+						return;
+					}
+					// Existing behavior
 					const event = new CustomEvent('trigger-level-8', {
 						detail: { terminalId: child.texture.key }
 					});
@@ -1373,8 +1459,18 @@ export default class Level extends Phaser.Scene {
 			// if key == num9
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num9") {
 				child.setInteractive(); // Ensure the image is interactive
+				if (this.dockerLevel < 9) {
+					child.setTexture("num19"); // Change to grayscale (9+10 = 19)
+				} else {
+					child.setTexture("num9");
+				}
 				child.on('pointerdown', () => {
-					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+					if (this.dockerLevel < 9) {
+						alert("Please solve the previous level");
+						return;
+					}
+					// ADDED: Check if the current docker level is less than 9
+					// Existing behavior
 					const event = new CustomEvent('trigger-level-9', {
 						detail: { terminalId: child.texture.key }
 					});
@@ -1384,8 +1480,17 @@ export default class Level extends Phaser.Scene {
 			// if key == num10
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num10") {
 				child.setInteractive(); // Ensure the image is interactive
-				child.on('pointerdown', () => {
-					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
+				if (this.dockerLevel < 10) {
+					child.setTexture("num20"); // Change to grayscale (10+10 = 20)
+				} else {
+					child.setTexture("num10");
+				}
+				child.on('pointerdown', () => {	
+					if (this.dockerLevel < 10) {
+						alert("Please solve the previous level");
+						return;
+					}
+					// Existing behavior
 					const event = new CustomEvent('trigger-level-10', {
 						detail: { terminalId: child.texture.key }
 					});
