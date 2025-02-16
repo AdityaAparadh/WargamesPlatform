@@ -14,6 +14,25 @@ export default class Level extends Phaser.Scene {
 
 	/** @returns {void} */
 	editorCreate() {
+		const tile_81 = this.add.image(1621, -1207, "tile1");
+		tile_81.scaleX = 0.18;
+		tile_81.scaleY = 0.18;
+
+		// woodbridge_7
+		const woodbridge_7 = this.add.image(1577, -1167, "woodbridge");
+		woodbridge_7.scaleX = 0.2;
+		woodbridge_7.scaleY = 0.2;
+		woodbridge_7.flipX = true;
+
+		// tile_80
+		const tile_80 = this.add.image(1528, -1140, "tile9");
+		tile_80.scaleX = 0.18;
+		tile_80.scaleY = 0.18;
+
+		// tile_79
+		const tile_79 = this.add.image(1485, -1117, "tile5");
+		tile_79.scaleX = 0.2;
+		tile_79.scaleY = 0.2;
 
 		// patch_grass_foliageleft
 		const patch_grass_foliageleft = this.add.image(149, 515, "patch-grass-foliageleft");
