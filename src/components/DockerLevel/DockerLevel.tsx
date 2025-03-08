@@ -4,20 +4,23 @@ import Console from "./Console";
 import Tools from "./Tools";
 import { usePage } from "../../hooks/usePage";
 import { cleanupLevel, restartLevel, currentLevel } from "../../utils/levelLoader";
+import { useAuth } from "../../hooks/useAuth"; 
 import "./Term.css"
+
 const DockerLevel: React.FC = () => {
   const { setCurrentPage } = usePage();
+  const { token } = useAuth(); 
 
   const handleEnter = (input: string) => {
     console.log("User Input:", input);
   };
 
   const handleBack = () => {
-    cleanupLevel(currentLevel, setCurrentPage);
+    cleanupLevel(currentLevel, token, setCurrentPage);
   };
 
   const handleReset = () => {
-    restartLevel(currentLevel, setCurrentPage);
+    restartLevel(currentLevel, token, setCurrentPage);
   };
 
   return (

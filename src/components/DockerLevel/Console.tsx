@@ -5,7 +5,7 @@ import { FitAddon } from "xterm-addon-fit"
 import { FiInfo } from "react-icons/fi"
 import "xterm/css/xterm.css"
 import { FaFlag } from "react-icons/fa"
-import { currentRunScript } from "../../utils/levelLoader"
+import { currentRunScript, currentLevel, currentLevelName } from "../../utils/levelLoader"
 import { useConfig } from "../../hooks/useConfig"
 import DockerLevels from "../../../levels/DockerLevels.json"
 
@@ -14,10 +14,7 @@ const Console: React.FC = () => {
   const term = useRef<Terminal | null>(null)
   const { current_docker_level } = useConfig()
 
-  const currentLevelInfo = DockerLevels.find( _ => current_docker_level)
-
   useEffect(() => {
-    // Wait for IPC to be ready
     const initializeTerminal = async () => {
       if (!terminalRef.current || term.current) return;
       
@@ -58,15 +55,20 @@ const Console: React.FC = () => {
       term.current.open(terminalRef.current);
       resizeTerminal();
 
-      // Wait for terminal to be fully initialized
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       if (currentRunScript) {
-        const cmd = `bash \$WARGAMES_PATH\\${currentRunScript}\r`;
-        console.log("CMD:", cmd)  ;
-        ipcRenderer.send("terminal.keystroke", cmd);
-        await new Promise(resolve => setTimeout(resolve, 100));
+        console.log("Running commands:", currentRunScript);
         ipcRenderer.send("terminal.keystroke", "clear\r");
+        
+        // Execute the run commands directly
+        const commands = currentRunScript.split('\n');
+        for (const cmd of commands) {
+          if (cmd.trim()) {
+            ipcRenderer.send("terminal.keystroke", `${cmd}\r`);
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+        }
       }
 
       const handleIncomingData = (_event: any, data: string) => {
@@ -97,7 +99,7 @@ const Console: React.FC = () => {
           <div className="flex items-center space-x-2">
             <FaFlag className="text-2xl text-blue-400" />
             <span className="text-lg font-semibold text-white">
-              Level {current_docker_level}: {currentLevelInfo?.name || 'Unknown Level'}
+              Level {currentLevel}: {currentLevelName || 'Unknown Level'}
             </span>
           </div>
           <div className="relative group">

@@ -25,7 +25,7 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
     e.preventDefault()
     try {
       const res = await axios.post(
-        config.BACKEND_URI + "/api/flag/submit", 
+        config.BACKEND_URI + "/level/submitFlag", 
         { currentLevel: current_docker_level, flag: input },
         { headers: { Authorization: `${token}` }}
       )

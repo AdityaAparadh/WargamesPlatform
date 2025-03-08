@@ -14,7 +14,7 @@ import "./GameUI.css";
 const Game = () => {
   const phaserContainerRef = useRef(null);
   const { setCurrentPage } = usePage();
-  const { username, clearAuth } = useAuth();
+  const { username,token ,clearAuth } = useAuth();
   const { current_docker_level, current_score, current_rank } = useConfig();
 
   const handleLogout = () => {
@@ -37,7 +37,7 @@ const Game = () => {
     const eventHandler = (e: CustomEvent) => {
       const parts = e.type.split("-");
       const lvl = parseInt(parts[2]);
-      loadLevel(lvl, setCurrentPage);
+      loadLevel(lvl,token ,setCurrentPage);
     };
     setTimeout(() => {
       if (game.canvas) {
