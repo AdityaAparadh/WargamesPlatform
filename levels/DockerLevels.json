@@ -1,21 +1,21 @@
 [
   {
     "level": 1,
-    "name": "Dockyard",
+    "name": "Dockyard A",
     "preloadScriptPath": "levels/docker/level1/preload.sh",
     "runScriptPath": "levels/docker/level1/run.sh",
     "cleanupScriptPath": "levels/docker/level1/cleanup.sh"
   },
   {
     "level": 2,
-    "name": "Dockyard",
+    "name": "Dockyard B",
     "preloadScriptPath": "levels/docker/level2/preload.sh",
     "runScriptPath": "levels/docker/level2/run.sh",
     "cleanupScriptPath": "levels/docker/level2/cleanup.sh"
   },
   {
     "level": 3,
-    "name": "Dockyard",
+    "name": "Dockyard C",
     "preloadScriptPath": "levels/docker/level3/preload.sh",
     "runScriptPath": "levels/docker/level3/run.sh",
     "cleanupScriptPath": "levels/docker/level3/cleanup.sh"

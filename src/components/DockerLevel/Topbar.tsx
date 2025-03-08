@@ -18,7 +18,7 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
   const [showConfetti, setShowConfetti] = useState(false)
   const [error, setError] = useState("")
   const {setCurrentPage}  = usePage();
-  const { current_docker_level }  = useConfig();
+  const { current_docker_level, setCurrentDockerLevel }  = useConfig();
   const { token }  = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,6 +33,7 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
       if(res.status === 200){
         setShowConfetti(true)
         setError("")
+        setCurrentDockerLevel(current_docker_level + 1);
         setTimeout(() => {setShowConfetti(false); setCurrentPage("MainPage")}, 5000) // hide confetti after 5 seconds
       }
     } catch (err) {

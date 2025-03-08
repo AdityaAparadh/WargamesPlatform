@@ -27,9 +27,11 @@ export async function loadLevel(level: number, setPage: (p: Page) => void): Prom
   setPage('LoadingPage');
   currentRunScript = lvlData.runScriptPath;
   try {
+
+    await runCommand(`$WARGAMES_PATH/` + lvlData.cleanupScriptPath);
     const PATH = `$WARGAMES_PATH/` + lvlData.preloadScriptPath;
     console.log("PRELOAD PATH: " + PATH);
-    // await runCommand( `$WARGAMES_PATH/` + lvlData.preloadScriptPath);
+    await runCommand( `$WARGAMES_PATH/` + lvlData.preloadScriptPath);
     await runCommand(PATH);
   } catch (e) {
     console.error("Preload failed", e);

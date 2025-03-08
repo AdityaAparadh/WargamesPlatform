@@ -6,8 +6,8 @@ import { IoTrophy } from "react-icons/io5";
 import { LuShell } from "react-icons/lu";
 import { FiLogOut } from "react-icons/fi";
 import { FaDocker } from "react-icons/fa";
-import config from '../../../config.json';
-import ReactConfetti from 'react-confetti';
+import config from "../../../config.json";
+import ReactConfetti from "react-confetti";
 import "./KubernetesLevel.css";
 
 interface QuizQuestion {
@@ -19,22 +19,27 @@ interface QuizQuestion {
 const KubernetesLevel = () => {
   const { setCurrentPage } = usePage();
   const { username, clearAuth, token } = useAuth();
-  const { current_score, current_rank, current_kube_level, setCurrentKubeLevel, setCurrentScore } = useConfig();
+  const {
+    current_score,
+    current_rank,
+    current_kube_level,
+    setCurrentKubeLevel,
+    setCurrentScore,
+  } = useConfig();
   const [selectedOption, setSelectedOption] = useState("");
   const [question, setQuestion] = useState<QuizQuestion | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [error, setError] = useState<string>("");
 
-  const bgImagePath = process.env.NODE_ENV === 'production' 
-    ? 'bg.png' 
-    : '/public/bg.png';
+  const bgImagePath =
+    process.env.NODE_ENV === "production" ? "bg.png" : "/public/bg.png";
   const handleLogout = () => {
     clearAuth();
-    setCurrentPage('LoginPage');
+    setCurrentPage("LoginPage");
   };
 
   const handleDockerClick = () => {
-    setCurrentPage('MainPage');
+    setCurrentPage("MainPage");
   };
 
   const fetchQuestion = async (level: number) => {
@@ -43,15 +48,15 @@ const KubernetesLevel = () => {
       return;
     }
     try {
-      const response = await fetch(`${config.BACKEND_URI}/api/quiz/getQuestion/${level}`, {
+      const response = await fetch(`${config.BACKEND_URI}/level/getQuizLevel`, {
         headers: {
-          'Authorization': `${token}`
-        }
+          Authorization: `${token}`,
+        },
       });
-      
+
       if (response.status === 401) {
         clearAuth();
-        setCurrentPage('LoginPage');
+        setCurrentPage("LoginPage");
         return;
       }
 
@@ -75,21 +80,24 @@ const KubernetesLevel = () => {
       const optionIndex = question?.options.indexOf(selectedOption) ?? -1;
       if (optionIndex === -1) return;
 
-      const response = await fetch(`${config.BACKEND_URI}/api/quiz/submit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`
+      const response = await fetch(
+        `${config.BACKEND_URI}/level/submitQuizAnswer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify({
+            currentLevel: current_kube_level,
+            answer: optionIndex + 1,
+          }),
         },
-        body: JSON.stringify({
-          currentLevel: current_kube_level,
-          option: optionIndex + 1
-        })
-      });
+      );
 
       if (response.status === 401) {
         clearAuth();
-        setCurrentPage('LoginPage');
+        setCurrentPage("LoginPage");
         return;
       }
 
@@ -109,7 +117,6 @@ const KubernetesLevel = () => {
         setSelectedOption("");
         setCurrentKubeLevel(current_kube_level + 1);
       }, 2000);
-
     } catch (err) {
       setError("Failed to submit answer");
     }
@@ -118,8 +125,8 @@ const KubernetesLevel = () => {
   return (
     <div className="kubernetes-container">
       {showConfetti && <ReactConfetti />}
-      <img src={bgImagePath} className='background-image' />
-      
+      <img src={bgImagePath} className="background-image" />
+
       <div className="ui-layer">
         <div className="top-bar">
           <div className="stats-section">
@@ -144,7 +151,7 @@ const KubernetesLevel = () => {
         <div className="quiz-container">
           <div className="quiz-content">
             <h2>Kubernetes Quiz</h2>
-            
+
             {current_kube_level > config.MAX_KUBES_LEVEL ? (
               <div className="completion-message">
                 <h3>🎉 Congratulations! 🎉</h3>
@@ -181,8 +188,8 @@ const KubernetesLevel = () => {
                     )}
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="submit-button"
                     disabled={!question || !selectedOption}
                   >
@@ -194,10 +201,7 @@ const KubernetesLevel = () => {
           </div>
         </div>
 
-        <button
-          onClick={handleDockerClick}
-          className="docker-button"
-        >
+        <button onClick={handleDockerClick} className="docker-button">
           <FaDocker className="docker-logo" />
         </button>
       </div>

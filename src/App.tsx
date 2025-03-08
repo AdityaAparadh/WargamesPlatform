@@ -15,25 +15,31 @@ import LoadingPage from "./components/LoadingPage/LoadingPage";
 function App() {
   const { currentPage, setCurrentPage } = usePage();
   const { token, username } = useAuth();
-  const { 
-    setCurrentScore, 
-    setCurrentRank, 
-    setLeaderboard, 
-    setCurrentDockerLevel, 
-    setCurrentKubeLevel 
+  const {
+    setCurrentScore,
+    setCurrentRank,
+    setLeaderboard,
+    setCurrentDockerLevel,
+    setCurrentKubeLevel,
   } = useConfig();
-  
+
   const statusIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const leaderboardIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleTerminalTrigger = (e: CustomEvent) => {
       console.log("Terminal trigger event received:", e.detail);
-      setCurrentPage('DockerLevel');
+      setCurrentPage("DockerLevel");
     };
-    window.addEventListener("terminal-trigger", handleTerminalTrigger as EventListener);
+    window.addEventListener(
+      "terminal-trigger",
+      handleTerminalTrigger as EventListener,
+    );
     return () => {
-      window.removeEventListener("terminal-trigger", handleTerminalTrigger as EventListener);
+      window.removeEventListener(
+        "terminal-trigger",
+        handleTerminalTrigger as EventListener,
+      );
     };
   }, [setCurrentPage]);
 
@@ -42,10 +48,11 @@ function App() {
 
     const updateStatus = async () => {
       try {
-        const response = await axios.get(`${config.BACKEND_URI}/api/leaderboard/status`, {
-          headers: { Authorization: token }
+        const response = await axios.get(`${config.BACKEND_URI}/info/status`, {
+          headers: { Authorization: token },
         });
-        const { score, rank, currentdockerLevel, currentkubesLevel } = response.data;
+        const { score, rank, currentdockerLevel, currentkubesLevel } =
+          response.data;
         setCurrentScore(score);
         setCurrentRank(rank);
         setCurrentDockerLevel(currentdockerLevel);
@@ -57,7 +64,10 @@ function App() {
 
     if (statusIntervalRef.current) clearInterval(statusIntervalRef.current);
     updateStatus();
-    statusIntervalRef.current = setInterval(updateStatus, config.UPDATE_TIMER * 1000);
+    statusIntervalRef.current = setInterval(
+      updateStatus,
+      config.UPDATE_TIMER * 1000,
+    );
 
     return () => {
       if (statusIntervalRef.current) clearInterval(statusIntervalRef.current);
@@ -69,7 +79,9 @@ function App() {
 
     const updateLeaderboard = async () => {
       try {
-        const response = await axios.get(`${config.BACKEND_URI}/api/leaderboard`);
+        const response = await axios.get(
+          `${config.BACKEND_URI}/info/leaderboard`,
+        );
         const { data } = response.data;
         setLeaderboard(data);
       } catch (error) {
@@ -77,28 +89,33 @@ function App() {
       }
     };
 
-    if (leaderboardIntervalRef.current) clearInterval(leaderboardIntervalRef.current);
+    if (leaderboardIntervalRef.current)
+      clearInterval(leaderboardIntervalRef.current);
     updateLeaderboard();
-    leaderboardIntervalRef.current = setInterval(updateLeaderboard, config.UPDATE_TIMER * 1000);
+    leaderboardIntervalRef.current = setInterval(
+      updateLeaderboard,
+      config.UPDATE_TIMER * 1000,
+    );
 
     return () => {
-      if (leaderboardIntervalRef.current) clearInterval(leaderboardIntervalRef.current);
+      if (leaderboardIntervalRef.current)
+        clearInterval(leaderboardIntervalRef.current);
     };
   }, [token, username]);
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'MainPage':
+      case "MainPage":
         return <Game />;
-      case 'DockerLevel':
-        return <DockerLevel onBack={() => setCurrentPage('MainPage')} />;
-      case 'LoginPage':
+      case "DockerLevel":
+        return <DockerLevel onBack={() => setCurrentPage("MainPage")} />;
+      case "LoginPage":
         return <LoginPage />;
-      case 'Leaderboard':
+      case "Leaderboard":
         return <Leaderboard />;
-      case 'KubernetesLevel':
+      case "KubernetesLevel":
         return <KubernetesLevel />;
-      case 'LoadingPage':
+      case "LoadingPage":
         return <LoadingPage />;
       default:
         return <Game />;

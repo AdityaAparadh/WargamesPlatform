@@ -2,5 +2,5 @@
       -v /var/run/docker.sock:/var/run/docker.sock \
       -v $(which docker):/usr/bin/docker \
       -v /var/lib/docker/volumes:/var/lib/docker/volumes \
-      --name Meta_Level_2 \
-      ghcr.io/pranavg1203/meta:warg01 bash
+      --name Meta_Level_5 \
+      ghcr.io/pranavg1203/meta:warg03 bash
