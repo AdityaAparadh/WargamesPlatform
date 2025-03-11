@@ -80,7 +80,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-header">
-        <h1>Welcome to Wargames</h1>
+        <h1>Technozion CTF 2k25</h1>
         <p>Sign in to continue your journey</p>
       </div>
 

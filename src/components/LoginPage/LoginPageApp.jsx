@@ -14,7 +14,7 @@ export default function LoginPageApp() {
       <div className="main">
         {/* <Scene /> */}
         <img src={bgImagePath} className="w-screen h-screen "></img>
-        <DockerWhale />
+        {/* <DockerWhale /> */}
         <div className="code">
           <div className="code-container">
             <Login />

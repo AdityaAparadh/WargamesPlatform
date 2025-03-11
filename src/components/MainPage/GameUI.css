@@ -85,7 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -99,7 +99,7 @@
   width: 40px;
   height: 40px;
   color: #ffffff;
-  animation: spin 10s linear infinite;
+  /* animation: spin 10s linear infinite; */
   transition: animation-duration 0.3s ease;
 }
 
@@ -107,14 +107,14 @@
   animation-duration: 5s;
 }
 
-@keyframes spin {
+/* @keyframes spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 /* Ensure text is readable */
 * {
@@ -218,7 +218,7 @@ button:active {
   margin-bottom: 15px;
 }
 
-@keyframes spin {
+/* @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
+} */

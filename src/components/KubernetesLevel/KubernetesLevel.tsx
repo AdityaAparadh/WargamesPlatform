@@ -6,6 +6,7 @@ import { IoTrophy } from "react-icons/io5";
 import { LuShell } from "react-icons/lu";
 import { FiLogOut } from "react-icons/fi";
 import { FaDocker } from "react-icons/fa";
+import { FaFlag } from "react-icons/fa6";
 import config from "../../../config.json";
 import ReactConfetti from "react-confetti";
 import "./KubernetesLevel.css";
@@ -157,12 +158,12 @@ const KubernetesLevel = () => {
 
         <div className="quiz-container">
           <div className="quiz-content">
-            <h2>Kubernetes Quiz</h2>
+            <h2>Technozion CTF Quiz</h2>
 
             {current_kube_level > config.MAX_KUBES_LEVEL ? (
               <div className="completion-message">
                 <h3>🎉 Congratulations! 🎉</h3>
-                <p>You have completed all Kubernetes questions!</p>
+                <p>You have completed all Quiz questions!</p>
                 {/* <p>Final Score: {current_score}</p> */}
               </div>
             ) : (
@@ -209,7 +210,7 @@ const KubernetesLevel = () => {
         </div>
 
         <button onClick={handleDockerClick} className="docker-button">
-          <FaDocker className="docker-logo" />
+          <FaFlag className="docker-logo" />
         </button>
       </div>
     </div>

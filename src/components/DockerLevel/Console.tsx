@@ -128,10 +128,12 @@ const Console: React.FC = () => {
         </div>
         <div className="relative group">
           <FiInfo className="text-xl text-blue-400 cursor-pointer" />
+          
           <div className="hidden group-hover:block absolute right-0 top-full mt-1 w-72 bg-navy-700 text-white text-xs p-3 rounded shadow-lg z-10">
-            Use the docker commands you learned in the console below to find the flag for this level. Then submit it
+            Use linux commands in the console below to find the flag for this level. Then submit it
             above.
           </div>
+           
         </div>
       </div>
       <div 

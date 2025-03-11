@@ -11,6 +11,7 @@ import { SiKubernetes } from "react-icons/si";
 import { MdLeaderboard } from "react-icons/md"; 
 import GameModal from "../common/GameModal";
 import "./GameUI.css";
+import { LuBrain } from "react-icons/lu";
 
 // Use memo to prevent unnecessary re-renders of the whole component
 const Game = memo(() => {
@@ -179,7 +180,8 @@ const Game = memo(() => {
           onClick={handleKubernetesClick}
           className="k8s-button"
         >
-          <SiKubernetes className="k8s-logo" />
+          {/* <SiKubernetes className="k8s-logo" /> */}
+          <LuBrain className="k8s-logo" />
         </button>
       </div>
 

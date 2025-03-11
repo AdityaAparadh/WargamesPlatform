@@ -80,7 +80,7 @@ const Leaderboard = () => {
 
       <div className="leaderboard-container">
         <div className="leaderboard-header">
-          <h1 className="title">Wargames Leaderboard</h1>
+          <h1 className="title">CTF Leaderboard</h1>
           {isHidden &&
             username &&
             !leaderboardData

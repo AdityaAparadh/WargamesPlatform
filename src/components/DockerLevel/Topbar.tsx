@@ -2,6 +2,7 @@ import axios from "axios"
 import type React from "react"
 import { useState } from "react"
 import { SiDocker } from "react-icons/si"
+import { FaLinux } from "react-icons/fa";
 import ReactConfetti from 'react-confetti'
 // import { currentLevel } from "../../utils/levelLoader"
 import { useConfig } from "../../hooks/useConfig"
@@ -76,8 +77,8 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
       {showConfetti && <ReactConfetti />}
       <header className="bg-navy-800 text-white p-4 flex flex-wrap items-center justify-between shadow-md gap-4">
         <h1 className="text-xl font-semibold flex items-center space-x-2">
-          <SiDocker size={70} className="text-4xl text-blue-400" />
-          <span>{levelName}</span>
+          <FaLinux size={70} className="text-4xl text-blue-400" />
+          <span>Technozion CTF</span>
         </h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col items-end space-y-2">

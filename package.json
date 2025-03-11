@@ -1,5 +1,5 @@
 {
-  "name": "wargamesfrontend",
+  "name": "TechnozionCTF",
   "private": true,
   "version": "0.5.0",
   "type": "module",
@@ -45,8 +45,8 @@
   },
   "main": "dist-electron/main.js",
   "build": {
-    "appId": "org.wcewlug.wargames",
-    "productName": "Wargames",
+    "appId": "org.technozion.ctf",
+    "productName": "Capture the Flag",
     "files": [
       "dist/",
       "dist-electron/",
