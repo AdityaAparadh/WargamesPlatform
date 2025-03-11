@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
 interface LeaderboardEntry {
     username: string;
@@ -31,27 +31,48 @@ export const ConfigProvider = ({ children }: { children: ReactNode }) => {
     const [current_kube_level, setCurrentKubeLevelState] = useState<number>(2);
     const [current_score, setCurrentScoreState] = useState<number>(0);
 
-    const setLeaderboard = (data: LeaderboardEntry[]) => setLeaderboardState(data);
-    const setCurrentRank = (rank: number) => setCurrentRankState(rank);
-    const setCurrentDockerLevel = (level: number) => setCurrentDockerLevelState(level);
-    const setCurrentKubeLevel = (level: number) => setCurrentKubeLevelState(level);
-    const setCurrentScore = (score: number) => setCurrentScoreState(score);
+    // Memoize the setter functions to prevent unnecessary re-renders
+    const setLeaderboard = useCallback((data: LeaderboardEntry[]) => {
+        // Only update if data is actually different
+        setLeaderboardState(prevData => {
+            if (JSON.stringify(prevData) === JSON.stringify(data)) {
+                return prevData;
+            }
+            return data;
+        });
+    }, []);
+    
+    const setCurrentRank = useCallback((rank: number) => {
+        setCurrentRankState(prev => prev === rank ? prev : rank);
+    }, []);
+    
+    const setCurrentDockerLevel = useCallback((level: number) => {
+        setCurrentDockerLevelState(prev => prev === level ? prev : level);
+    }, []);
+    
+    const setCurrentKubeLevel = useCallback((level: number) => {
+        setCurrentKubeLevelState(prev => prev === level ? prev : level);
+    }, []);
+    
+    const setCurrentScore = useCallback((score: number) => {
+        setCurrentScoreState(prev => prev === score ? prev : score);
+    }, []);
+
+    const value = {
+        leaderboard,
+        current_rank,
+        current_docker_level,
+        current_kube_level,
+        current_score,
+        setLeaderboard,
+        setCurrentRank,
+        setCurrentDockerLevel,
+        setCurrentKubeLevel,
+        setCurrentScore
+    };
 
     return (
-        <ConfigContext.Provider
-            value={{
-                leaderboard,
-                current_rank,
-                current_docker_level,
-                current_kube_level,
-                current_score,
-                setLeaderboard,
-                setCurrentRank,
-                setCurrentDockerLevel,
-                setCurrentKubeLevel,
-                setCurrentScore
-            }}
-        >
+        <ConfigContext.Provider value={value}>
             {children}
         </ConfigContext.Provider>
     );

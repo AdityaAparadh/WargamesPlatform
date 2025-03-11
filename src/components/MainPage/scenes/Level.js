@@ -1053,6 +1053,15 @@ export default class Level extends Phaser.Scene {
 	// Write your code here
 
 	create() {
+		// Define showMessage function inside the create method so it has access to 'this'
+		const showMessage = (message) => {
+			// Create and dispatch a custom event with the message
+			const event = new CustomEvent('game-message', {
+				detail: { message }
+			});
+			window.dispatchEvent(event);
+		};
+
 		// NEW: Add animated water background
 		// This tileSprite covers the full game canvas (1920×1080) and is scaled 2x so it won't show gaps during scrolling.
 		this.water = this.add.tileSprite(0, 0, 1920, 1080, "water");
@@ -1305,7 +1314,13 @@ export default class Level extends Phaser.Scene {
 			// if key == num1
 			if (child instanceof Phaser.GameObjects.Image && child.texture.key == "num1") {
 				child.setInteractive(); // Ensure the image is interactive
+	
 				child.on('pointerdown', () => {
+					if( this.dockerLevel != 1){
+						showMessage("Already Solved");
+						return;
+					}
+
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-1', {
 						detail: { terminalId: child.texture.key }
@@ -1324,9 +1339,13 @@ export default class Level extends Phaser.Scene {
 				child.on('pointerdown', () => {
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					if (this.dockerLevel < 2) {
-					alert("Please solve the previous level");
+					showMessage("Please solve the previous level");
+					return;
+				}else if( this.dockerLevel != 2){
+					showMessage("Already Solved");
 					return;
 				}
+
 				const event = new CustomEvent('trigger-level-2', {
 					detail: { terminalId: child.texture.key }
 				});
@@ -1343,9 +1362,13 @@ export default class Level extends Phaser.Scene {
 				}
 				child.on('pointerdown', () => {
 					if (this.dockerLevel < 3) {
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
-					}
+					}else if( this.dockerLevel != 3){
+					showMessage("Already Solved");
+					return;
+				}
+
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-3', {
 						detail: { terminalId: child.texture.key }
@@ -1363,9 +1386,13 @@ export default class Level extends Phaser.Scene {
 				}
 				child.on('pointerdown', () => {
 					if (this.dockerLevel < 4) {
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
 					}
+					else if( this.dockerLevel != 4){
+					showMessage("Already Solved");
+					return;
+				}
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-4', {
 						detail: { terminalId: child.texture.key }
@@ -1383,9 +1410,13 @@ export default class Level extends Phaser.Scene {
 				}
 				child.on('pointerdown', () => {
 					if (this.dockerLevel < 5) {
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
 					}
+					else if( this.dockerLevel != 5){
+					showMessage("Already Solved");
+					return;
+				}
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-5', {
 						detail: { terminalId: child.texture.key }
@@ -1404,9 +1435,14 @@ export default class Level extends Phaser.Scene {
 				child.on('pointerdown', () => {
 					if (this.dockerLevel < 6) {
 						child.setTexture("num16"); // Change to grayscale (6+10 = 16)
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
 					}
+					else if( this.dockerLevel != 6){
+					showMessage("Already Solved");
+					return;
+				}
+
 					// Dispatch a custom event; you can pass the tile's key (or any identifier) in the details
 					const event = new CustomEvent('trigger-level-6', {
 						detail: { terminalId: child.texture.key }
@@ -1425,9 +1461,13 @@ export default class Level extends Phaser.Scene {
 				}
 				child.on('pointerdown', () => {
 					if (this.dockerLevel < 7) {
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
 					}
+					else if( this.dockerLevel != 7){
+					showMessage("Already Solved");
+					return;
+				}
 					// ADDED: Check if the current docker level is less than 7
 					// Existing behavior
 					const event = new CustomEvent('trigger-level-7', {
@@ -1446,9 +1486,13 @@ export default class Level extends Phaser.Scene {
 				}
 				child.on('pointerdown', () => {
 					if (this.dockerLevel < 8) {
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
 					}
+					else if( this.dockerLevel != 8){
+					showMessage("Already Solved");
+					return;
+				}
 					// Existing behavior
 					const event = new CustomEvent('trigger-level-8', {
 						detail: { terminalId: child.texture.key }
@@ -1466,9 +1510,13 @@ export default class Level extends Phaser.Scene {
 				}
 				child.on('pointerdown', () => {
 					if (this.dockerLevel < 9) {
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
 					}
+					else if( this.dockerLevel != 9){
+					showMessage("Already Solved");
+					return;
+				}
 					// ADDED: Check if the current docker level is less than 9
 					// Existing behavior
 					const event = new CustomEvent('trigger-level-9', {
@@ -1487,8 +1535,12 @@ export default class Level extends Phaser.Scene {
 				}
 				child.on('pointerdown', () => {	
 					if (this.dockerLevel < 10) {
-						alert("Please solve the previous level");
+						showMessage("Please solve the previous level");
 						return;
+					}
+					else if( this.dockerLevel != 10){
+					showMessage("Already Solved");
+					return;
 					}
 					// Existing behavior
 					const event = new CustomEvent('trigger-level-10', {

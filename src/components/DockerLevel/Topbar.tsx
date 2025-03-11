@@ -17,12 +17,17 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
   const [input, setInput] = useState("")
   const [showConfetti, setShowConfetti] = useState(false)
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
   const {setCurrentPage}  = usePage();
   const { current_docker_level, setCurrentDockerLevel }  = useConfig();
   const { token }  = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    // Reset messages on new submission
+    setError("")
+    setSuccess("")
+    
     try {
       const res = await axios.post(
         config.BACKEND_URI + "/level/submitFlag", 
@@ -32,16 +37,34 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
       
       if(res.status === 200){
         setShowConfetti(true)
-        setError("")
+        setSuccess("Correct Flag!")
+        setInput("") // Clear input field on success
         setCurrentDockerLevel(current_docker_level + 1);
-        setTimeout(() => {setShowConfetti(false); setCurrentPage("MainPage")}, 5000) // hide confetti after 5 seconds
+        setTimeout(() => {
+          setShowConfetti(false)
+          setSuccess("")
+          setCurrentPage("MainPage")
+        }, 5000) // hide confetti after 5 seconds
       }
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 400) {
         setError("Wrong Flag")
+        setInput("") // Clear input field on error
       }
     }
   }
+
+  const errorStyle = {
+    color: '#ff4d4d',
+    fontSize: '14px',
+    fontWeight: '500'
+  };
+
+  const successStyle = {
+    color: '#4BB543',
+    fontSize: '14px',
+    fontWeight: '500'
+  };
 
   return (
     <>
@@ -68,7 +91,8 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
               Enter
             </button>
           </div>
-          {error && <span className="text-red-500">{error}</span>}
+          {error && <span style={errorStyle}>{error}</span>}
+          {success && <span style={successStyle}>{success}</span>}
         </form>
       </header>
     </>

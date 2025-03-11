@@ -6,13 +6,13 @@ import { FiInfo } from "react-icons/fi"
 import "xterm/css/xterm.css"
 import { FaFlag } from "react-icons/fa"
 import { currentRunScript, currentLevel, currentLevelName } from "../../utils/levelLoader"
-import { useConfig } from "../../hooks/useConfig"
-import DockerLevels from "../../../levels/DockerLevels.json"
+// import { useConfig } from "../../hooks/useConfig"
+// import DockerLevels from "../../../levels/DockerLevels.json"
 
 const Console: React.FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null)
   const term = useRef<Terminal | null>(null)
-  const { current_docker_level } = useConfig()
+  // const { current_docker_level } = useConfig()
 
   useEffect(() => {
     const initializeTerminal = async () => {
@@ -46,14 +46,60 @@ const Console: React.FC = () => {
       term.current.loadAddon(fitAddon);
 
       const resizeTerminal = () => {
+        if (!term.current) return;
         fitAddon.fit();
-        term.current?.resize(term.current.cols, term.current.rows);
+        term.current.resize(term.current.cols, term.current.rows);
       };
 
       window.addEventListener("resize", resizeTerminal);
 
       term.current.open(terminalRef.current);
-      resizeTerminal();
+      
+      // Focus terminal on load to ensure it captures keypresses
+      setTimeout(() => {
+        term.current?.focus();
+      }, 300);
+
+      // Add global keydown listener to ensure spacebar works in terminal
+      const handleGlobalKeydown = (e: KeyboardEvent) => {
+        // If the terminal element is active/focused and the key is spacebar
+        if (document.activeElement === terminalRef.current && e.key === " ") {
+          e.preventDefault(); // Prevent default spacebar behavior (like scrolling)
+          if (term.current) {
+            // Send spacebar character to terminal
+            ipcRenderer.send("terminal.keystroke", " ");
+          }
+        }
+      };
+
+      window.addEventListener('keydown', handleGlobalKeydown);
+
+      // Add listener for terminal focus restoration
+      const handleTerminalRefocus = () => {
+        console.log("Restoring terminal focus");
+        setTimeout(() => {
+          if (term.current) {
+            term.current.focus();
+            // Additionally, send a dummy command to ensure the terminal is responsive
+            if (ipcRenderer) {
+              // Sometimes we need to re-trigger the terminal input
+              ipcRenderer.send("terminal.refocus");
+            }
+          }
+        }, 100);
+      };
+
+      window.addEventListener('restore-terminal-focus', handleTerminalRefocus);
+
+      // Make sure to resize terminal after a short delay to ensure DOM is fully rendered
+      setTimeout(() => {
+        if (term.current) {
+          const fitAddon = new FitAddon();
+          term.current.loadAddon(fitAddon);
+          fitAddon.fit();
+          term.current.focus(); // Ensure focus after resize
+        }
+      }, 100);
 
       await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -82,7 +128,9 @@ const Console: React.FC = () => {
       });
 
       return () => {
+        window.removeEventListener('keydown', handleGlobalKeydown);
         window.removeEventListener("resize", resizeTerminal);
+        window.removeEventListener('restore-terminal-focus', handleTerminalRefocus);
         ipcRenderer.off("terminal.incomingData", handleIncomingData);
         term.current?.dispose();
         term.current = null;
@@ -92,25 +140,47 @@ const Console: React.FC = () => {
     initializeTerminal();
   }, [currentRunScript]);
 
+  // Add a direct method to focus the terminal that can be called from outside
+  useEffect(() => {
+    // Expose a global method to focus the terminal
+    (window as any).focusTerminal = () => {
+      if (term.current) {
+        term.current.focus();
+      }
+    };
+    
+    return () => {
+      delete (window as any).focusTerminal;
+    };
+  }, []);
+
   return (
-    <div className="w-full h-full">
-      <div className="w-full h-full flex flex-col rounded-lg overflow-hidden border border-navy-600 shadow-lg">
-        <div className="p-2 flex items-center justify-between bg-navy-800">
-          <div className="flex items-center space-x-2">
-            <FaFlag className="text-2xl text-blue-400" />
-            <span className="text-lg font-semibold text-white">
-              Level {currentLevel}: {currentLevelName || 'Unknown Level'}
-            </span>
-          </div>
-          <div className="relative group">
-            <FiInfo className="text-xl text-blue-400 cursor-pointer" />
-            <div className="hidden group-hover:block absolute right-0 top-full mt-1 w-72 bg-navy-700 text-white text-xs p-3 rounded shadow-lg z-10">
-              Use the docker commands you learned in the console below to find the flag for this level. Then submit it
-              above.
-            </div>
+    <div className="w-full h-full flex flex-col rounded-lg overflow-hidden border border-navy-600 shadow-lg terminal-wrapper">
+      <div className="p-2 flex items-center justify-between bg-navy-800">
+        <div className="flex items-center space-x-2">
+          <FaFlag className="text-2xl text-blue-400" />
+          <span className="text-lg font-semibold text-white">
+            Level {currentLevel}: {currentLevelName || 'Unknown Level'}
+          </span>
+        </div>
+        <div className="relative group">
+          <FiInfo className="text-xl text-blue-400 cursor-pointer" />
+          <div className="hidden group-hover:block absolute right-0 top-full mt-1 w-72 bg-navy-700 text-white text-xs p-3 rounded shadow-lg z-10">
+            Use the docker commands you learned in the console below to find the flag for this level. Then submit it
+            above.
           </div>
         </div>
-        <div ref={terminalRef} className="flex-1 bg-navy-900 text-white" />
+      </div>
+      <div 
+        className="terminal-content flex-grow" 
+        onClick={() => term.current?.focus()} // Focus terminal on click
+      >
+        <div 
+          ref={terminalRef} 
+          className="h-full bg-navy-900 text-white"
+          tabIndex={0} // Make div focusable
+          onFocus={() => term.current?.focus()} // Ensure xterm gets focus
+        />
       </div>
     </div>
   )

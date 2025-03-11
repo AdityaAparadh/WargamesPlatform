@@ -1,0 +1,61 @@
+.game-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it's above everything */
+}
+
+.game-modal-container {
+  background-color: #172b4d; /* navy-800 equivalent */
+  border: 2px solid #3b82f6; /* blue-500 equivalent */
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  max-width: 500px;
+  width: 90%;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.game-modal-content {
+  text-align: center;
+  color: white;
+}
+
+.game-modal-message {
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.game-modal-button {
+  padding: 10px 16px;
+  background-color: #2563eb; /* blue-600 equivalent */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 0 auto;
+  display: block;
+}
+
+.game-modal-button:hover {
+  background-color: #1d4ed8; /* blue-700 equivalent */
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
