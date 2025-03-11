@@ -34,10 +34,6 @@ const Game = memo(() => {
 
   const closeModal = useCallback(() => {
     setModalOpen(false);
-    // After closing the modal, dispatch an event to restore terminal focus if needed
-    window.dispatchEvent(new CustomEvent('restore-terminal-focus', {
-      detail: { source: 'modal-close' }
-    }));
   }, []);
 
   const handleLogout = useCallback(() => {

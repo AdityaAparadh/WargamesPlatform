@@ -49,9 +49,6 @@ function createWindow() {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
 
-  // Console ipc
-  // const shellCommand = os.platform() === "win32" ? "cmd.exe" : "bash";
-  
   const ptyProcess = pty.spawn("bash", [], {
     name: "xterm-color",
     cols: 80,
@@ -66,7 +63,6 @@ function createWindow() {
   });
 
   ipcMain.on("terminal.keystroke", (event, key) => {
-    console.log(event);
     ptyProcess.write(key);
   });
 }

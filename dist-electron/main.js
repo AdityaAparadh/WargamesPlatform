@@ -50,7 +50,6 @@ function spawnShell() {
     name: "xterm-color",
     cols: 80,
     rows: 60,
-    // cwd: process.cwd(),
     cwd: os.homedir(),
     env: process.env,
   });
@@ -72,25 +71,10 @@ function spawnShell() {
 // Initially spawn the terminal shell
 spawnShell();
 
-// Add a handler for terminal refocus event
-ipcMain.on("terminal.refocus", (event) => {
-  if (ptyProcess) {
-    // Send a null byte or some harmless character to "wake up" the terminal
-    // This helps ensure the terminal is responsive after alerts
-    ptyProcess.write("");
-  }
-});
-
 // Update the ipcMain listener to use the current ptyProcess
 ipcMain.on("terminal.keystroke", (event, key) => {
   if (ptyProcess) {
-    // Special handling for spacebar to ensure it's properly processed
-    if (key === " ") {
-      console.log("Spacebar pressed"); // Debug log
-      ptyProcess.write(" ");
-    } else {
-      ptyProcess.write(key);
-    }
+    ptyProcess.write(key);
   }
 });
 
@@ -110,9 +94,6 @@ ipcMain.on("terminal.simulateKeyboard", (event, { ctrl, shift, alt, key }) => {
         ptyProcess.write(clipboardText);
       }
     }
-  } else if (key === " ") {
-    // Ensure spacebar is handled correctly
-    ptyProcess.write(" ");
   }
 });
 

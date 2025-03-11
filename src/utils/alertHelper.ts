@@ -4,19 +4,7 @@
  */
 export const safeAlert = (message: string): void => {
   alert(message);
-  
-  // After alert is closed, dispatch an event to restore terminal focus
-  setTimeout(() => {
-    const event = new CustomEvent('restore-terminal-focus', {
-      detail: { source: 'safe-alert' }
-    });
-    window.dispatchEvent(event);
-    
-    // Also try directly focusing if the global method exists
-    if (typeof window !== 'undefined' && (window as any).focusTerminal) {
-      (window as any).focusTerminal();
-    }
-  }, 100);
+  // No need for focus restoration since alerts aren't used anymore
 };
 
 /**
@@ -26,20 +14,7 @@ export const safeAlert = (message: string): void => {
  */
 export const safeConfirm = (message: string): boolean => {
   const result = confirm(message);
-  
-  // After confirm is closed, dispatch an event to restore terminal focus
-  setTimeout(() => {
-    const event = new CustomEvent('restore-terminal-focus', {
-      detail: { source: 'safe-confirm' }
-    });
-    window.dispatchEvent(event);
-    
-    // Also try directly focusing if the global method exists
-    if (typeof window !== 'undefined' && (window as any).focusTerminal) {
-      (window as any).focusTerminal();
-    }
-  }, 100);
-  
+  // No need for focus restoration since confirms aren't used anymore
   return result;
 };
 

@@ -6,13 +6,10 @@ import { FiInfo } from "react-icons/fi"
 import "xterm/css/xterm.css"
 import { FaFlag } from "react-icons/fa"
 import { currentRunScript, currentLevel, currentLevelName } from "../../utils/levelLoader"
-// import { useConfig } from "../../hooks/useConfig"
-// import DockerLevels from "../../../levels/DockerLevels.json"
 
 const Console: React.FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null)
   const term = useRef<Terminal | null>(null)
-  // const { current_docker_level } = useConfig()
 
   useEffect(() => {
     const initializeTerminal = async () => {
@@ -55,49 +52,18 @@ const Console: React.FC = () => {
 
       term.current.open(terminalRef.current);
       
-      // Focus terminal on load to ensure it captures keypresses
+      // Focus terminal on load
       setTimeout(() => {
         term.current?.focus();
       }, 300);
 
-      // Add global keydown listener to ensure spacebar works in terminal
-      const handleGlobalKeydown = (e: KeyboardEvent) => {
-        // If the terminal element is active/focused and the key is spacebar
-        if (document.activeElement === terminalRef.current && e.key === " ") {
-          e.preventDefault(); // Prevent default spacebar behavior (like scrolling)
-          if (term.current) {
-            // Send spacebar character to terminal
-            ipcRenderer.send("terminal.keystroke", " ");
-          }
-        }
-      };
-
-      window.addEventListener('keydown', handleGlobalKeydown);
-
-      // Add listener for terminal focus restoration
-      const handleTerminalRefocus = () => {
-        console.log("Restoring terminal focus");
-        setTimeout(() => {
-          if (term.current) {
-            term.current.focus();
-            // Additionally, send a dummy command to ensure the terminal is responsive
-            if (ipcRenderer) {
-              // Sometimes we need to re-trigger the terminal input
-              ipcRenderer.send("terminal.refocus");
-            }
-          }
-        }, 100);
-      };
-
-      window.addEventListener('restore-terminal-focus', handleTerminalRefocus);
-
-      // Make sure to resize terminal after a short delay to ensure DOM is fully rendered
+      // Make sure to resize terminal after a short delay
       setTimeout(() => {
         if (term.current) {
           const fitAddon = new FitAddon();
           term.current.loadAddon(fitAddon);
           fitAddon.fit();
-          term.current.focus(); // Ensure focus after resize
+          term.current.focus();
         }
       }, 100);
 
@@ -128,9 +94,7 @@ const Console: React.FC = () => {
       });
 
       return () => {
-        window.removeEventListener('keydown', handleGlobalKeydown);
         window.removeEventListener("resize", resizeTerminal);
-        window.removeEventListener('restore-terminal-focus', handleTerminalRefocus);
         ipcRenderer.off("terminal.incomingData", handleIncomingData);
         term.current?.dispose();
         term.current = null;
@@ -140,9 +104,8 @@ const Console: React.FC = () => {
     initializeTerminal();
   }, [currentRunScript]);
 
-  // Add a direct method to focus the terminal that can be called from outside
+  // Add a direct method to focus the terminal
   useEffect(() => {
-    // Expose a global method to focus the terminal
     (window as any).focusTerminal = () => {
       if (term.current) {
         term.current.focus();
@@ -173,13 +136,13 @@ const Console: React.FC = () => {
       </div>
       <div 
         className="terminal-content flex-grow" 
-        onClick={() => term.current?.focus()} // Focus terminal on click
+        onClick={() => term.current?.focus()}
       >
         <div 
           ref={terminalRef} 
           className="h-full bg-navy-900 text-white"
-          tabIndex={0} // Make div focusable
-          onFocus={() => term.current?.focus()} // Ensure xterm gets focus
+          tabIndex={0}
+          onFocus={() => term.current?.focus()}
         />
       </div>
     </div>
