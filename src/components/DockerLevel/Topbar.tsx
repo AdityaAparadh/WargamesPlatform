@@ -38,8 +38,13 @@ const Topbar: React.FC<TopbarProps> = ({ levelName, onEnter }) => {
       if(res.status === 200){
         setShowConfetti(true)
         setSuccess("Correct Flag!")
-        setInput("") // Clear input field on success
+        setInput("") 
         setCurrentDockerLevel(current_docker_level + 1);
+      await axios.get(
+        config.BACKEND_URI + "/info/updateLeaderboard", 
+        { headers: { Authorization: `${token}` }}
+      )
+      
         setTimeout(() => {
           setShowConfetti(false)
           setSuccess("")

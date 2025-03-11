@@ -9,6 +9,7 @@ import { FaDocker } from "react-icons/fa";
 import config from "../../../config.json";
 import ReactConfetti from "react-confetti";
 import "./KubernetesLevel.css";
+import axios from "axios";
 
 interface QuizQuestion {
   question: string;
@@ -106,6 +107,12 @@ const KubernetesLevel = () => {
       if (response.ok) {
         setShowConfetti(true);
         setCurrentScore(data.totalScore);
+
+      await axios.get(
+        config.BACKEND_URI + "/info/updateLeaderboard", 
+        { headers: { Authorization: `${token}` }}
+      )
+
       } else {
         setError("Incorrect answer!");
       }

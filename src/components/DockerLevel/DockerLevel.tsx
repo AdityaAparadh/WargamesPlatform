@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Topbar from "./Topbar";
 import Console from "./Console";
 import Tools from "./Tools";
+import CheatsheetModal from "./CheatsheetModal";
 import { usePage } from "../../hooks/usePage";
 import { cleanupLevel, restartLevel, currentLevel } from "../../utils/levelLoader";
 import { useAuth } from "../../hooks/useAuth"; 
@@ -10,6 +11,7 @@ import "./Term.css"
 const DockerLevel: React.FC = () => {
   const { setCurrentPage } = usePage();
   const { token } = useAuth(); 
+  const [isCheatsheetOpen, setIsCheatsheetOpen] = useState(false);
 
   const handleEnter = (input: string) => {
     console.log("User Input:", input);
@@ -24,7 +26,11 @@ const DockerLevel: React.FC = () => {
   };
   
   const handleCheatsheet = () => {
-    console.log("Opening cheatsheet");
+    setIsCheatsheetOpen(true);
+  };
+
+  const handleCloseCheatsheet = () => {
+    setIsCheatsheetOpen(false);
   };
 
   return (
@@ -38,6 +44,7 @@ const DockerLevel: React.FC = () => {
           <Tools onBack={handleBack} onReset={handleReset} onCheatsheet={handleCheatsheet} />
         </div>
       </main>
+      <CheatsheetModal isOpen={isCheatsheetOpen} onClose={handleCloseCheatsheet} />
     </div>
   );
 };
