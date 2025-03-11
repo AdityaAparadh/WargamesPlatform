@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-const DEFAULT_PAGE = 'LoginPage' as const;
-type Page = 'MainPage' | 'LoginPage' | 'Leaderboard' | 'KubernetesLevel' | 'DockerLevel' | 'LoadingPage';
+const DEFAULT_PAGE = 'DebugPage' as const; // Changed default to DebugPage
+type Page = 'MainPage' | 'LoginPage' | 'Leaderboard' | 'KubernetesLevel' | 'DockerLevel' | 'LoadingPage' | 'DebugPage';
 
 interface PageContextType {
     currentPage: Page;

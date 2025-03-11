@@ -11,6 +11,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
 import KubernetesLevel from "./components/KubernetesLevel/KubernetesLevel";
 import LoadingPage from "./components/LoadingPage/LoadingPage";
+import DebugPage from "./components/DebugPage/DebugPage";
 
 function App() {
   const { currentPage, setCurrentPage } = usePage();
@@ -169,6 +170,8 @@ function App() {
         return <KubernetesLevel />;
       case "LoadingPage":
         return <LoadingPage />;
+      case "DebugPage":
+        return <DebugPage />;
       default:
         return <Game />;
     }

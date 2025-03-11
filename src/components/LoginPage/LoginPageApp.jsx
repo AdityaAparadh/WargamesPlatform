@@ -1,11 +1,8 @@
 // import Scene from './components/Scene'
-import { useState } from "react";
 import DockerWhale from "./components/DockerWhale";
 import Login from "./components/Login";
-import { useAuth } from "../../hooks/useAuth";
 import "./styles.css";
 import "./pmndrs.css";
-import axios from "axios";
 
 export default function LoginPageApp() {
   // const [username, setUsername] = useState('')

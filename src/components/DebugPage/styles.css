@@ -1,0 +1,264 @@
+.debug-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+.debug-content {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: rgba(13, 17, 23, 0.5); /* Changed to translucent instead of black */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 150, 255, 0.2);
+  z-index: 10;
+  position: relative;
+}
+
+.debug-content h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #00bbff;
+  text-shadow: 0 0 8px rgba(0, 200, 255, 0.6);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.debug-description {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #bde8ff;
+  opacity: 0.8;
+}
+
+.debug-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.check-item {
+  background-color: rgba(0, 12, 25, 0.6); /* Slightly lighter translucent background */
+  border-radius: 6px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 150, 255, 0.15);
+}
+
+.check-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.check-item h3 {
+  margin: 0;
+  color: #00bbff;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.check-description {
+  margin: 0.5rem 0;
+  color: #bde8ff;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+.check-item-success {
+  border-left: 4px solid #00ff88;
+}
+
+.check-item-error {
+  border-left: 4px solid #ff6b6b;
+}
+
+.check-item-loading {
+  border-left: 4px solid #00bbff;
+}
+
+.success-icon {
+  color: #00ff88;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+}
+
+.error-icon {
+  color: #ff6b6b;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 107, 107, 0.6);
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #00bbff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 8px rgba(0, 187, 255, 0.5);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.help-link {
+  background: transparent;
+  color: #00bbff;
+  border: none;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+.help-link:hover {
+  color: #66d9ff;
+  text-shadow: 0 0 8px rgba(0, 187, 255, 0.5);
+}
+
+.all-checks-passed {
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(0, 255, 136, 0.1);
+  border-radius: 6px;
+  color: #00ff88;
+  animation: fadeIn 0.5s ease;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.debug-page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 1;
+}
+
+/* Animated grid background similar to LoginPage */
+.debug-page-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(0, 30, 60, 0.15) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 30, 60, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: 2;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 20px 20px;
+  }
+}
+
+/* Blue glow effect */
+.glow-effect {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 150, 255, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(20px);
+  z-index: 3;
+  opacity: 0.6;
+}
+
+/* Black overlay to dim the background image */
+.black-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 5;
+}
+
+.debug-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.debug-button {
+  background-color: rgba(0, 12, 25, 0.6); /* Match the translucent style */
+  color: #00bbff;
+  border: 1px solid rgba(0, 150, 255, 0.3);
+  border-radius: 4px;
+  padding: 0.75rem 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 140px;
+}
+
+.debug-button:hover {
+  background-color: rgba(0, 20, 40, 0.8);
+  box-shadow: 0 0 12px rgba(0, 150, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.debug-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  font-size: 1.1rem;
+}
+
+.recheck-button:hover {
+  color: #66d9ff;
+}
+
+.continue-button {
+  color: #00ff88;
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.continue-button:hover {
+  color: #66ffbb;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+}
