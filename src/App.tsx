@@ -26,7 +26,7 @@ function App() {
 
   // Add loading state to wait for initial data fetching
   const [isInitialized, setIsInitialized] = useState(false);
-  
+
   // Single ref for all data fetching to prevent race conditions
   const fetchTimerRef = useRef<NodeJS.Timeout | null>(null);
   // Track if we're currently fetching to prevent overlapping requests
@@ -37,10 +37,13 @@ function App() {
   const updateCountRef = useRef(0);
 
   // Terminal trigger handler
-  const handleTerminalTrigger = useCallback((e: CustomEvent) => {
-    console.log("Terminal trigger event received:", e.detail);
-    setCurrentPage("DockerLevel");
-  }, [setCurrentPage]);
+  const handleTerminalTrigger = useCallback(
+    (e: CustomEvent) => {
+      console.log("Terminal trigger event received:", e.detail);
+      setCurrentPage("DockerLevel");
+    },
+    [setCurrentPage],
+  );
 
   // Set up event listener for terminal triggers
   useEffect(() => {
@@ -57,61 +60,72 @@ function App() {
   }, [handleTerminalTrigger]);
 
   // Combined data fetching function to ensure consistency
-  const fetchAllData = useCallback(async (isInitialFetch = false) => {
-    // Prevent overlapping requests
-    if (isFetchingRef.current || !token) {
-      return;
-    }
-    
-    try {
-      isFetchingRef.current = true;
-      
-      // Log update count for debugging
-      updateCountRef.current++;
-      console.log(`Data fetch #${updateCountRef.current} started`);
-      
-      // Fetch status data
-      const statusResponse = await axios.get(`${config.BACKEND_URI}/info/status`, {
-        headers: { Authorization: token },
-      });
-      
-      const { score, rank, currentdockerLevel, currentkubesLevel } = statusResponse.data;
-      setCurrentScore(score);
-      setCurrentRank(rank);
-      setCurrentDockerLevel(currentdockerLevel);
-      setCurrentKubeLevel(currentkubesLevel);
-      
-      // Only fetch leaderboard if we have a username (authenticated)
-      if (username) {
-        const leaderboardResponse = await axios.get(`${config.BACKEND_URI}/info/leaderboard`);
-        const { data } = leaderboardResponse.data;
-        setLeaderboard(data);
+  const fetchAllData = useCallback(
+    async (isInitialFetch = false) => {
+      // Prevent overlapping requests
+      if (isFetchingRef.current || !token) {
+        return;
       }
-      
-      // Mark as initialized on first fetch
-      if (isInitialFetch) {
-        setIsInitialized(true);
+
+      try {
+        isFetchingRef.current = true;
+
+        // Log update count for debugging
+        updateCountRef.current++;
+        console.log(`Data fetch #${updateCountRef.current} started`);
+
+        // Fetch status data
+        const statusResponse = await axios.get(
+          `${config.BACKEND_URI}/info/status`,
+          {
+            headers: { Authorization: token },
+          },
+        );
+
+        const { score, rank, currentdockerLevel, currentkubesLevel } =
+          statusResponse.data;
+        setCurrentScore(score);
+        setCurrentRank(rank);
+        setCurrentDockerLevel(currentdockerLevel);
+        setCurrentKubeLevel(currentkubesLevel);
+
+        // Only fetch leaderboard if we have a username (authenticated)
+        if (username) {
+          const leaderboardResponse = await axios.get(
+            `${config.BACKEND_URI}/info/leaderboard`,
+          );
+          const { data } = leaderboardResponse.data;
+          setLeaderboard(data);
+        }
+
+        // Mark as initialized on first fetch
+        if (isInitialFetch) {
+          setIsInitialized(true);
+        }
+
+        console.log(
+          `Data fetch #${updateCountRef.current} completed successfully`,
+        );
+      } catch (error) {
+        console.error(`Data fetch #${updateCountRef.current} failed:`, error);
+        if (isInitialFetch) {
+          // Even on error, proceed after initial attempt
+          setIsInitialized(true);
+        }
+      } finally {
+        isFetchingRef.current = false;
       }
-      
-      console.log(`Data fetch #${updateCountRef.current} completed successfully`);
-    } catch (error) {
-      console.error(`Data fetch #${updateCountRef.current} failed:`, error);
-      if (isInitialFetch) {
-        // Even on error, proceed after initial attempt
-        setIsInitialized(true);
-      }
-    } finally {
-      isFetchingRef.current = false;
-    }
-  }, [
-    token, 
-    username, 
-    setCurrentScore, 
-    setCurrentRank, 
-    setCurrentDockerLevel, 
-    setCurrentKubeLevel, 
-    setLeaderboard
-  ]);
+    },
+    [
+      token,
+      username,
+      setCurrentScore,
+      setCurrentRank,
+      setCurrentDockerLevel,
+      setCurrentKubeLevel,
+      setLeaderboard,
+    ],
+  );
 
   // Single effect for all data fetching
   useEffect(() => {
@@ -120,26 +134,26 @@ function App() {
       clearInterval(fetchTimerRef.current);
       fetchTimerRef.current = null;
     }
-    
+
     if (!token) {
       setIsInitialized(true);
       return;
     }
-    
+
     // Initial fetch on mount or token/username change
     if (!initialFetchAttemptedRef.current) {
       initialFetchAttemptedRef.current = true;
       fetchAllData(true);
     }
-    
+
     // Set up a single interval for all data updates
     const intervalMs = config.UPDATE_TIMER * 1000;
     console.log(`Setting up data fetch interval: ${intervalMs}ms`);
-    
+
     fetchTimerRef.current = setInterval(() => {
       fetchAllData(false);
     }, intervalMs);
-    
+
     return () => {
       console.log("Cleaning up data fetch interval");
       if (fetchTimerRef.current) {
@@ -155,7 +169,7 @@ function App() {
     if (!isInitialized && token) {
       return <LoadingPage />;
     }
-    
+
     // Once initialized or if no token needed, proceed to render appropriate page
     switch (currentPage) {
       case "MainPage":
@@ -166,8 +180,8 @@ function App() {
         return <LoginPage />;
       case "Leaderboard":
         return <Leaderboard />;
-      case "KubernetesLevel":
-        return <KubernetesLevel />;
+      // case "KubernetesLevel":
+      // return <KubernetesLevel />;
       case "LoadingPage":
         return <LoadingPage />;
       case "DebugPage":

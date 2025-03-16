@@ -56,10 +56,13 @@
       "buildResources": "build"
     },
     "linux": {
-      "target": "deb",
+      "target": [
+        "deb",
+        "AppImage"
+      ],
       "maintainer": "aditya.aparadh.0@gmail.com",
       "category": "Game",
-      "icon": "public/icon.png"
+      "icon": "build/icon.png"
     }
   }
 }
